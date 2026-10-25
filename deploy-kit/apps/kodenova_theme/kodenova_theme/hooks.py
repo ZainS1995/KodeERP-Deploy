@@ -1,7 +1,7 @@
 app_name = "kodenova_theme"
-app_title = "KodeERP Brand"
+app_title = "Intelliconz Accounting Brand"
 app_publisher = "Kodenova"
-app_description = "Kodenova brand theme and UX layer for KodeERP (ERPNext v16)"
+app_description = "Kodenova brand theme and UX layer for Intelliconz Accounting (ERPNext v16)"
 app_email = "dev@example.com"
 app_license = "mit"
 
@@ -34,19 +34,19 @@ app_license = "mit"
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = ["/assets/kodenova_theme/css/kodenova_theme.css?v=8", "/assets/kodenova_theme/css/kodenova_motion.css?v=8", "/assets/kodenova_theme/css/kodeerp_dashboard.css?v=8", "/assets/kodenova_theme/css/kodeerp_v5.css?v=8"]
+app_include_css = ["/assets/kodenova_theme/css/kodenova_theme.css?v=9", "/assets/kodenova_theme/css/kodenova_motion.css?v=9", "/assets/kodenova_theme/css/kodeerp_dashboard.css?v=9", "/assets/kodenova_theme/css/kodeerp_v5.css?v=9"]
 app_logo_url = "/assets/kodenova_theme/images/kodeerp-icon-192.png"
-app_include_js = ["/assets/kodenova_theme/js/kodenova_theme.js?v=8", "/assets/kodenova_theme/js/kodeerp_list_cards.js?v=8", "/assets/kodenova_theme/js/kodeerp_tabs.js?v=8", "/assets/kodenova_theme/js/kodeerp_line_dims.js?v=8"]
+app_include_js = ["/assets/kodenova_theme/js/kodenova_theme.js?v=9", "/assets/kodenova_theme/js/kodeerp_list_cards.js?v=9", "/assets/kodenova_theme/js/kodeerp_tabs.js?v=9", "/assets/kodenova_theme/js/kodeerp_line_dims.js?v=9"]
 
 # include js, css files in header of web template
-web_include_css = ["/assets/kodenova_theme/css/kodenova_theme.css?v=8", "/assets/kodenova_theme/css/kodenova_motion.css?v=8", "/assets/kodenova_theme/css/kodenova_login.css?v=8", "/assets/kodenova_theme/css/kodeerp_v5.css?v=8"]
+web_include_css = ["/assets/kodenova_theme/css/kodenova_theme.css?v=9", "/assets/kodenova_theme/css/kodenova_motion.css?v=9", "/assets/kodenova_theme/css/kodenova_login.css?v=9", "/assets/kodenova_theme/css/kodeerp_v5.css?v=9"]
 
 # Brand the outgoing email container (premailer inlines it) — supported hook, appended after frappe's email.bundle.css
 email_css = ["/assets/kodenova_theme/css/kodenova_email.css"]
 
 # Relabel apps-screen tiles / rail logo with KodeERP equivalents (boot payload only)
 extend_bootinfo = "kodenova_theme.boot.extend_bootinfo"
-web_include_js = ["/assets/kodenova_theme/js/kodenova_web.js?v=8", "/assets/kodenova_theme/js/kodenova_login.js?v=8"]
+web_include_js = ["/assets/kodenova_theme/js/kodenova_web.js?v=9", "/assets/kodenova_theme/js/kodenova_login.js?v=9"]
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "kodenova_theme/public/scss/website"

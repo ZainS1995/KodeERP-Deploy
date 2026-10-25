@@ -6,7 +6,7 @@ so `bench migrate` never resets the brand. Uses only public settings fields, no 
 
 import frappe
 
-BRAND_NAME = "KodeERP"
+BRAND_NAME = "Intelliconz Accounting"
 LOGO = "/assets/kodenova_theme/images/kodeerp-icon-192.png"  # official KodeERP K icon: desk sidebar / navbar (small)
 LOCKUP = "/assets/kodenova_theme/images/kodeerp-logo.png"  # official KodeERP wordmark: login/update-password card and email masthead
 FAVICON = "/assets/kodenova_theme/images/kodeerp-favicon.ico"

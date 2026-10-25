@@ -67,7 +67,7 @@
   }
 })();
 
-// ---- v0.5 white-label: KodeERP About dialog (replaces frappe.ui.misc.about at runtime; no core edit) ----
+// ---- v0.5 white-label: Intelliconz Accounting About dialog (replaces frappe.ui.misc.about at runtime; no core edit) ----
 (function () {
   if (!window.frappe || !frappe.provide) return;
   frappe.provide("frappe.ui.misc");
@@ -84,7 +84,7 @@
         '<p class="kn-about-tag">' + __("Business management by Kodenova.") + '</p>' +
         '<div class="kn-about-row"><span>' + __("Version") + '</span><b>' + KN_VERSION + '</b></div>' +
         '<div class="kn-about-row"><span>' + __("Website") + '</span><a href="https://kodenova.com" target="_blank" rel="noopener">kodenova.com</a></div>' +
-        '<p class="kn-about-legal">' + __("KodeERP includes open-source software.") +
+        '<p class="kn-about-legal">' + __("Intelliconz Accounting includes open-source software.") +
         ' <a href="/licenses" target="_blank">' + __("Open-source licenses") + '</a></p>' +
       '</div>'
     );
@@ -131,7 +131,7 @@
 // ---- v0.5 white-label: browser tab titles never show upstream product names ----
 (function () {
   var RX = /\bERPNext\b|\bFrappe HR\b|\bFrappe\b/g;
-  var MAP = { "ERPNext": "KodeERP", "Frappe HR": "KodeERP People", "Frappe": "KodeERP" };
+  var MAP = { "ERPNext": "Intelliconz Accounting", "Frappe HR": "Intelliconz People", "Frappe": "Intelliconz Accounting" };
   function fix() { var t = document.title; if (RX.test(t)) { RX.lastIndex = 0; document.title = t.replace(RX, function (m) { return MAP[m]; }); } RX.lastIndex = 0; }
   var el = document.querySelector("title");
   if (el && window.MutationObserver) new MutationObserver(fix).observe(el, { childList: true, characterData: true, subtree: true });
@@ -145,7 +145,7 @@ kodeerp.switch_language = function () {
   var d = new frappe.ui.Dialog({
     title: __("Switch language"),
     fields: [
-      { fieldtype: "HTML", options: '<p class="text-muted">' + __("Choose the language for KodeERP. The page reloads to apply it.") + "</p>" },
+      { fieldtype: "HTML", options: '<p class="text-muted">' + __("Choose the language for Intelliconz Accounting. The page reloads to apply it.") + "</p>" },
       { fieldname: "language", fieldtype: "Select", label: __("Language"), default: frappe.boot.lang || "en",
         options: langs.map(function (l) { return { value: l[0], label: l[1] }; }) },
     ],

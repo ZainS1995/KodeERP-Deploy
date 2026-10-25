@@ -7,10 +7,10 @@ credited on the single /licenses page (linked from About and the web footer) and
 
 IMG = "/assets/kodenova_theme/images/"
 APP_BRANDING = {
-	"erpnext": ("KodeERP", IMG + "kodenova-app-erp.svg"),
-	"hrms": ("KodeERP People", IMG + "kodenova-app-hr.svg"),
+	"erpnext": ("Intelliconz Accounting", IMG + "kodenova-app-erp.svg"),
+	"hrms": ("Intelliconz People", IMG + "kodenova-app-hr.svg"),
 	"frappe": ("Admin", IMG + "kodenova-app-admin.svg"),
-	"kodenova_theme": ("KodeERP Theme", IMG + "kodeerp-icon-192.png"),
+	"kodenova_theme": ("Intelliconz Accounting Theme", IMG + "kodeerp-icon-192.png"),
 }
 
 

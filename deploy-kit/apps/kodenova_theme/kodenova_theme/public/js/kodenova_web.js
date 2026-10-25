@@ -1,4 +1,4 @@
-// KodeERP website/login enhancements (web_include_js). Progressive: does nothing if markup changes.
+// Intelliconz Accounting website/login enhancements (web_include_js). Progressive: does nothing if markup changes.
 // Guest pages: strings chosen by <html lang> (en / es / ar). Keep in sync with translations/*.csv.
 var KN_L = (document.documentElement.lang || "en").slice(0, 2);
 var KN_T = {
@@ -33,7 +33,7 @@ window.knReveal = knReveal;
       if (img) img.src = "/assets/kodenova_theme/images/kodeerp-logo.png";
       var brand = document.createElement("div");
       brand.className = "kn-brand";
-      brand.setAttribute("aria-label", "KodeERP");
+      brand.setAttribute("aria-label", "Intelliconz Accounting");
       brand.innerHTML = '<span class="kn-brand-name">Kode<span class="kn-brand-accent">ERP</span></span><span class="kn-brand-tag">' + KN_S.tag + '</span>';
       if (img && img.parentNode) {
         var row = document.createElement("div");
@@ -61,13 +61,13 @@ window.knReveal = knReveal;
     }
   }
   // v3 split-screen login (brand panel, dashboard preview, motion) lives in js/kodenova_login.js.
-  // Branded message / error / 403 pages: add the KodeERP mark above the card title.
+  // Branded message / error / 403 pages: add the Intelliconz Accounting mark above the card title.
   function brandMessage() {
     var path = document.body.dataset.path;
     if (path !== "message" && path !== "error") return;
     var head = document.querySelector(".page-card-head");
     if (head && !head.querySelector(".kn-msg-mark")) {
-      var img = document.createElement("img"); img.className = "kn-msg-mark"; img.alt = "KodeERP";
+      var img = document.createElement("img"); img.className = "kn-msg-mark"; img.alt = "Intelliconz Accounting";
       img.src = "/assets/kodenova_theme/images/kodeerp-logo.png"; head.insertBefore(img, head.firstChild);
     }
   }

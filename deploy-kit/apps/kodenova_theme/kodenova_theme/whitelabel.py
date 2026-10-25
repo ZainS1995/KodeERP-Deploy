@@ -9,8 +9,8 @@ import re
 
 import frappe
 
-NAMES = [("Frappe Framework", "KodeERP Platform"), ("Frappe HR", "KodeERP People"), ("Frappe CRM", "KodeERP CRM"),
-	("Frappe Cloud", "KodeERP Cloud"), ("ERPNext", "KodeERP"), ("Frappe", "KodeERP")]
+NAMES = [("Frappe Framework", "Intelliconz Platform"), ("Frappe HR", "Intelliconz People"), ("Frappe CRM", "Intelliconz CRM"),
+	("Frappe Cloud", "Intelliconz Cloud"), ("ERPNext", "Intelliconz Accounting"), ("Frappe", "Intelliconz Accounting")]
 DOC_LINK = re.compile(r"\s*See \[[^\]]+\]\(https?://[^)]*(frappe|erpnext)[^)]*\)\.?", re.I)
 ANY_LINK = re.compile(r"\[([^\]]+)\]\(https?://[^)]*(frappe\.io|erpnext\.com|frappeframework\.com)[^)]*\)", re.I)
 BRAND_URL = re.compile(r"(frappe\.io|erpnext\.com|frappeframework\.com|frappe\.cloud|frappecloud\.com|github\.com/frappe)", re.I)
@@ -81,7 +81,7 @@ def navbar_and_email():
 	if dirty:
 		ns.save(ignore_permissions=True)
 		changed.append("Navbar Settings.help_dropdown")
-	footer = "KodeERP by Kodenova · Synthetic sandbox"
+	footer = "Intelliconz Accounting"
 	if frappe.db.get_default("email_footer_address") != footer:
 		frappe.db.set_default("email_footer_address", footer)
 		changed.append("email_footer_address")
