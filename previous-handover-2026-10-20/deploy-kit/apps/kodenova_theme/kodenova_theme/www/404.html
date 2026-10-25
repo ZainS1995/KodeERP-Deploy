@@ -1,0 +1,15 @@
+{#- KodeERP branded 404 (overrides frappe/www/404.html via app load order) -#}
+{% extends "templates/web.html" %}
+{%- block title -%}{{ _("Not Found") }}{%- endblock -%}
+{% block navbar %}{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_content %}
+<script>window.is_404 = true;</script>
+<div class="kn-error-page" data-ani>
+  <img src="/assets/kodenova_theme/images/kodeerp-logo.png" alt="KodeERP" class="kn-error-mark">
+  <span class="kn-eyebrow">404</span>
+  <h1>{{ _("Page not found") }}</h1>
+  <p>{{ _("The page you are looking for doesn't exist or has moved.") }}</p>
+  <a href="/desk" class="btn btn-primary">{{ _("Back to KodeERP") }}</a>
+</div>
+{% endblock %}

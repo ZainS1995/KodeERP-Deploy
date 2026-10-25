@@ -1,0 +1,197 @@
+/*
+ * Kodenova Motion for KodeERP — v0.5, timings per docs/KODENOVA-DESIGN-SYSTEM.md §3 (source of truth).
+ * Data screens: entrances + hover only, never a looping animation.
+ * Same curves as kodenova.com, compressed to app speed (150–350ms). CSS-first; JS only adds
+ * .kn-route-enter on desk route change (kodenova_theme.js). Everything is gated on
+ * prefers-reduced-motion: no-preference. Inputs, grids, datatables and print are not animated.
+ */
+:root {
+  --knm-ease: cubic-bezier(.2, .7, .2, 1);
+  --knm-ease-2: cubic-bezier(.2, .8, .2, 1);
+  --knm-spring: cubic-bezier(.3, 1.5, .5, 1);
+  --knm-fast: 150ms; --knm-base: 220ms; --knm-slow: 320ms;
+}
+
+/* Brand toasts (Espresso .es-toast) — colours apply regardless of motion preference */
+.es-toast {
+  background: var(--kn-ink, #0e0e10) !important; color: #fff !important;
+  border-radius: 14px !important; border-inline-start: 4px solid var(--kn-blue, #2f6bff);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .18) !important;
+}
+.es-toast[data-type="success"] { border-inline-start-color: var(--kn-ok, #18b26b); --es-toast-icon: var(--kn-ok, #18b26b); }
+.es-toast[data-type="info"] { --es-toast-icon: #77a6ff; }
+.es-toast[data-type="warning"] { border-inline-start-color: var(--kn-yellow, #ffd23f); --es-toast-icon: var(--kn-yellow, #ffd23f); }
+.es-toast[data-type="error"] { border-inline-start-color: var(--kn-orange, #ff6a3d); --es-toast-icon: var(--kn-orange, #ff6a3d); }
+
+/* Skeleton loaders: brand tint (static under reduced motion) */
+.skeleton, .es-skeleton, .skeleton-card, .skeleton-label, .skeleton-section, .skeleton-grid-row,
+.skeleton-grid-head, .skeleton-check, .skeleton-tabs, .skeleton-help, .list-skeleton .skeleton,
+.workspace-skeleton .skeleton-card, .with-skeleton .skeleton {
+  background-color: #eef3ff !important;
+  background-image: linear-gradient(90deg, #eef3ff 0%, #f6f6f7 40%, #e5edff 60%, #eef3ff 100%) !important;
+  background-size: 200% 100% !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* ---------- keyframes (prefixed knv- to avoid core name clashes) ---------- */
+  @keyframes knv-fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes knv-card-in { from { opacity: 0; transform: translateY(14px) scale(.98); } to { opacity: 1; transform: none; } }
+  @keyframes knv-pop { from { opacity: 0; transform: translateY(-4px) scale(.98); } to { opacity: 1; transform: none; } }
+  @keyframes knv-toast-in { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
+  @keyframes knv-toast-out { to { opacity: 0; transform: translateY(8px) scale(.98); } }
+  @keyframes knv-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+  @keyframes knv-grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+  @keyframes knv-draw { from { stroke-dashoffset: 4000; } to { stroke-dashoffset: 0; } }
+  @keyframes knv-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes knv-hl { from { background-size: 0 100%; } to { background-size: 100% 100%; } }
+
+  /* ---------- login ---------- */
+  body[data-path="login"] .kn-attribution { animation: knv-fade 400ms var(--knm-ease) 200ms both; }
+  body[data-path="login"] .kn-tagline .kn-hl {
+    background: linear-gradient(var(--kn-yellow, #ffd23f), var(--kn-yellow, #ffd23f)) left / 0 100% no-repeat;
+    animation: knv-hl 600ms var(--knm-ease) 250ms forwards;
+  }
+  body[data-path="login"] .btn-login, body[data-path="login"] .btn-primary { transition: transform var(--knm-fast) var(--knm-ease), background-color var(--knm-fast), box-shadow var(--knm-base); }
+  body[data-path="login"] .btn-login:hover, body[data-path="login"] .form-login button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 14px 30px #2f6bff52; }
+
+  /* ---------- desk route enter (class added by JS on page-change only) ---------- */
+  .page-container.kn-route-enter > .page-body,
+  .page-container.kn-route-enter .page-head .page-title { animation: knv-fade-up var(--knm-base) var(--knm-ease) both; }
+
+  /* ---------- workspace: staggered fade-up (widgets incl. number cards) ---------- */
+  .codex-editor__redactor > .ce-block { animation: knv-fade-up 240ms var(--knm-ease) both; }
+  .codex-editor__redactor > .ce-block:nth-child(2) { animation-delay: 35ms; }
+  .codex-editor__redactor > .ce-block:nth-child(3) { animation-delay: 70ms; }
+  .codex-editor__redactor > .ce-block:nth-child(4) { animation-delay: 105ms; }
+  .codex-editor__redactor > .ce-block:nth-child(5) { animation-delay: 140ms; }
+  .codex-editor__redactor > .ce-block:nth-child(6) { animation-delay: 175ms; }
+  .codex-editor__redactor > .ce-block:nth-child(7) { animation-delay: 210ms; }
+  .codex-editor__redactor > .ce-block:nth-child(8) { animation-delay: 245ms; }
+  .codex-editor__redactor > .ce-block:nth-child(9) { animation-delay: 280ms; }
+  .codex-editor__redactor > .ce-block:nth-child(n+10) { animation-delay: 300ms; }
+  /* never animate while editing a workspace */
+  .workspace-container.edit-mode .ce-block, .codex-editor--editing .ce-block, .ce-block--selected { animation: none; }
+  .desktop-container .icons > *, .desktop-container .icon-container { animation: knv-card-in 260ms var(--knm-ease) both; }
+  .desktop-container .icons > *:nth-child(2) { animation-delay: 40ms; }
+  .desktop-container .icons > *:nth-child(3) { animation-delay: 80ms; }
+  .desktop-container .icons > *:nth-child(n+4) { animation-delay: 120ms; }
+
+  /* ---------- hover lift + shadow ---------- */
+  .widget, .frappe-card, .number-card, .dashboard-widget-box, .shortcut-widget-box, .links-widget-box,
+  .desktop-container .icon-container img, .desktop-icon img {
+    transition: transform 250ms var(--knm-ease), box-shadow 250ms var(--knm-ease);
+  }
+  .widget.shortcut-widget-box:hover, .widget.links-widget-box:hover, .widget.number-widget-box:hover,
+  .number-card:hover, .widget.dashboard-widget-box:hover {
+    transform: translateY(-4px); box-shadow: 0 28px 60px #00000014;
+  }
+  .desktop-container a:hover img, .desktop-icon:hover img { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(14, 14, 16, .16); }
+
+  /* ---------- buttons: hover lift + press feedback (never on grid/inline-edit controls) ---------- */
+  .btn, .es-button {
+    transition: background-color var(--knm-fast) var(--knm-ease), color var(--knm-fast), border-color var(--knm-fast),
+      box-shadow var(--knm-base) var(--knm-ease), transform var(--knm-fast) var(--knm-ease);
+  }
+  .btn.btn-primary:hover, .es-button[data-variant="solid"]:hover { transform: translateY(-1px); box-shadow: 0 14px 30px #2f6bff52; }
+  .btn:active, .es-button:active { transform: scale(.97); transition-duration: 90ms; }
+  .form-grid .btn, .form-grid .es-button, .grid-row .btn, .dt-cell .btn { transform: none !important; transition: none; }
+
+  /* ---------- sidebar + rail ---------- */
+  .body-sidebar .standard-sidebar-item, .body-sidebar .standard-sidebar-item .sidebar-item-label,
+  .body-sidebar .standard-sidebar-item svg, .dock .dock-item, .dock .dock-item svg, .form-tabs-list .nav-link {
+    transition: background-color 180ms var(--knm-ease), color 180ms var(--knm-ease), box-shadow 180ms var(--knm-ease);
+  }
+  .dock .dock-item:active { transform: scale(.94); transition: transform 90ms; }
+
+  /* ---------- list rows ---------- */
+  .list-row-container, .list-row, .dt-row { transition: background-color 120ms linear; }
+
+  /* ---------- modals / dropdowns / toasts ---------- */
+  .modal.fade .modal-dialog {
+    transform: translateY(12px) scale(.98); opacity: 0;
+    transition: transform 240ms var(--knm-ease), opacity 200ms var(--knm-ease) !important;
+  }
+  .modal.show .modal-dialog { transform: none; opacity: 1; }
+  .modal-backdrop.fade { transition: opacity 200ms linear; }
+  .dropdown-menu.show, .awesomplete > ul:not([hidden]), .es-dropdown__content, [role="menu"][data-state="open"] {
+    animation: knv-pop 160ms var(--knm-ease-2) both; transform-origin: top;
+  }
+  .es-toast { animation: knv-toast-in 260ms var(--knm-spring) both !important; }
+  .es-toast.out, .es-toast--out { animation: knv-toast-out 180ms ease-in forwards !important; }
+
+  /* ---------- skeleton shimmer ---------- */
+  .skeleton, .es-skeleton, .skeleton-card, .skeleton-label, .skeleton-section, .skeleton-grid-row,
+  .skeleton-grid-head, .skeleton-check, .skeleton-tabs, .skeleton-help, .with-skeleton .skeleton {
+    animation: knv-shimmer 1.2s var(--knm-ease) 1 both !important; /* single sweep: no loops on data screens */
+  }
+
+  /* ---------- charts draw-in ---------- */
+  .frappe-chart rect.bar {
+    transform-box: fill-box; transform-origin: 50% 100%;
+    animation: knv-grow-y 350ms var(--knm-ease) both;
+  }
+  .frappe-chart .dataset-1 rect.bar { animation-delay: 60ms; }
+  .frappe-chart .dataset-2 rect.bar { animation-delay: 120ms; }
+  .frappe-chart .line-graph-path, .frappe-chart path.line-graph-path {
+    stroke-dasharray: 4000; animation: knv-draw 450ms var(--knm-ease) both;
+  }
+  .frappe-chart .percentage-graph .progress, .frappe-chart .percentage-graph rect,
+  .chart-container .progress-bar { transform-box: fill-box; transform-origin: 0 50%; animation: knv-fade 300ms var(--knm-ease) both; }
+  .frappe-chart .dataset-dots, .frappe-chart .legend-dot { animation: knv-fade 300ms var(--knm-ease) 200ms both; }
+
+  /* ---------- explicit no-motion zones (data entry) ---------- */
+  input, textarea, select, .form-control, .ql-editor, .awesomplete input,
+  .form-grid .grid-row, .form-grid .grid-static-col, .form-grid .grid-row-open, .editable-row,
+  .dt-cell, .dt-cell__edit, .dt-scrollable, .datatable, .print-format, .print-preview {
+    animation: none !important;
+  }
+}
+
+/* Reduced motion: be explicit (also kills any inherited Frappe animation on these) */
+@media (prefers-reduced-motion: reduce) {
+  .page-container, .ce-block, .page-card, .es-toast, .dropdown-menu, .modal .modal-dialog,
+  .frappe-chart rect, .frappe-chart path, .skeleton, .es-skeleton, .skeleton-card {
+    animation: none !important; transition: none !important;
+  }
+}
+
+/* =====================================================================================
+   v0.5 spec reveal system (§3). Spec ".fade" is named .kn-fade here because Bootstrap already uses .fade. Hidden states apply only when <html> has .js (set by the
+   reveal script) AND motion is allowed, so content is always visible without JS or with
+   reduced motion. The script adds .in via IntersectionObserver (threshold .1) and a 3s
+   safety timeout adds .in to everything.
+   ===================================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.js .kn-fade { opacity: 0; transform: translateY(18px); transition: opacity .8s var(--knm-ease) .3s, transform .8s var(--knm-ease) .3s; }
+  html.js .kn-fade.in { opacity: 1; transform: none; }
+  html.js [data-ani] { opacity: 0; transform: translateY(28px); transition: opacity .7s var(--knm-ease), transform .9s var(--knm-ease); }
+  html.js [data-ani].in { opacity: 1; transform: none; }
+  html.js h1[data-ani], html.js [data-ani="h1"] { transform: translateY(40px); filter: blur(6px); transition: opacity 1s var(--knm-ease), transform 1s var(--knm-ease), filter 1s var(--knm-ease); }
+  html.js h1[data-ani].in, html.js [data-ani="h1"].in { transform: none; filter: none; }
+  html.js [data-ani="grid"] > * { opacity: 0; transform: translateY(30px) scale(.97); transition: opacity .8s var(--knm-ease), transform .8s var(--knm-ease); }
+  html.js [data-ani="grid"].in > * { opacity: 1; transform: none; }
+  html.js [data-ani="grid"].in > *:nth-child(1) { transition-delay: 0ms; }
+  html.js [data-ani="grid"].in > *:nth-child(2) { transition-delay: 70ms; }
+  html.js [data-ani="grid"].in > *:nth-child(3) { transition-delay: 140ms; }
+  html.js [data-ani="grid"].in > *:nth-child(4) { transition-delay: 210ms; }
+  html.js [data-ani="grid"].in > *:nth-child(5) { transition-delay: 280ms; }
+  html.js [data-ani="grid"].in > *:nth-child(6) { transition-delay: 350ms; }
+  html.js [data-ani="grid"].in > *:nth-child(7) { transition-delay: 420ms; }
+  html.js [data-ani="grid"].in > *:nth-child(8) { transition-delay: 490ms; }
+  html.js [data-ani="grid"].in > *:nth-child(n+9) { transition-delay: 550ms; }
+  html.js .reveal-lines .rl > span { transform: translateY(105%); transition: transform .9s var(--knm-ease); }
+  html.js .reveal-lines.in .rl > span { transform: none; }
+  html.js .reveal-lines.in .rl:nth-child(2) > span { transition-delay: .12s; }
+  html.js .reveal-lines.in .rl:nth-child(3) > span { transition-delay: .24s; }
+  html.js .reveal-lines .hl { background: linear-gradient(var(--kn-hl, #ffd23f), var(--kn-hl, #ffd23f)) left / 0 100% no-repeat; transition: background-size .9s var(--knm-ease) .55s; }
+  html.js .reveal-lines.in .hl { background-size: 100% 100%; }
+  /* login card: spec [data-ani] entrance, a beat after the headline */
+  html.js body[data-path="login"] .page-card[data-ani] { transition-delay: .25s; }
+  .kn-float-header .kn-fh-cta:hover { transform: translateY(-1px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .kn-fade, [data-ani], [data-ani] > *, .reveal-lines .rl > span { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .reveal-lines .hl { background-size: 100% 100% !important; }
+  svg path, svg line, svg polyline { stroke-dashoffset: 0 !important; }
+}

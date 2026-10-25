@@ -1,0 +1,146 @@
+/*
+ * KodeERP login v4 — minimal centred sign-in (Zain: brand panel removed).
+ * Light canvas (#f3f3f4) + one white card: KodeERP wordmark, "Welcome back", fields, button.
+ * Scoped to body.kn-login-v2 (added by js/kodenova_login.js). Logical properties mirror it for RTL.
+ * Motion: transform/opacity only. Springs are pre-computed (stiffness/damping, mass 1) into CSS linear()
+ * easings, the same curves Framer Motion produces, with a cubic-bezier fallback.
+ */
+:root {
+  --kn-sp-pop: cubic-bezier(.3, 1.45, .5, 1);
+  --kn-sp-soft: cubic-bezier(.22, 1.08, .36, 1);
+  --kn-sp-pop-d: 1000ms;
+  --kn-sp-soft-d: 900ms;
+}
+@supports (animation-timing-function: linear(0, 1)) {
+  :root {
+    --kn-sp-pop: linear(0, 0.0387, 0.1323, 0.259, 0.4008, 0.5439, 0.6781, 0.7966, 0.8958, 0.9743, 1.0326, 1.0723, 1.0959, 1.1063, 1.1065, 1.0994, 1.0875, 1.0729, 1.0575, 1.0424, 1.0287, 1.0168, 1.0071, 0.9997, 0.9944, 0.9909, 0.989, 0.9884, 0.9888, 0.9898, 0.9913, 0.9929, 0.9946, 0.9961, 0.9975, 0.9987, 0.9996, 1.0003, 1.0008, 1.0011, 1); /* spring stiffness 170, damping 15 */
+    --kn-sp-soft: linear(0, 0.0198, 0.0727, 0.1461, 0.2303, 0.3186, 0.4061, 0.4895, 0.5667, 0.6367, 0.6989, 0.7533, 0.8002, 0.8401, 0.8737, 0.9017, 0.9246, 0.9432, 0.9582, 0.97, 0.9793, 0.9859, 0.9914, 0.9955, 0.9985, 1.0006, 1.0019, 1.0028, 1.0033, 1.0035, 1.0035, 1.0033, 1.0031, 1.0028, 1.0025, 1.0022, 1.0019, 1.0016, 1.0014, 1.0011, 1); /* spring stiffness 120, damping 19 */
+  }
+}
+
+body.kn-login-v2[data-path="login"] { background: #f3f3f4 !important; min-height: 100vh; overflow-x: hidden; }
+body.kn-login-v2 .kn-float-header, body.kn-login-v2 .kn-login-hero, body.kn-login-v2 .web-footer, body.kn-login-v2 .navbar,
+body.kn-login-v2 .page-breadcrumbs, body.kn-login-v2 .page-header-wrapper, body.kn-login-v2 .kn-tagline, body.kn-login-v2 .kn-brand { display: none !important; }
+body.kn-login-v2 .for-login a.btn-login-with-email-link { display: none !important; }
+
+/* =================== centred form card =================== */
+body.kn-login-v2 #page-login {
+  min-height: 100vh; position: relative; display: flex; flex-direction: column; justify-content: center;
+  padding: 48px 24px 80px; background: transparent;
+}
+body.kn-login-v2 #page-login .page-content-wrapper, body.kn-login-v2 #page-login main.container,
+body.kn-login-v2 #page-login .page_content { width: 100%; max-width: 440px; margin: 0 auto; padding: 0 !important; min-height: 0 !important; }
+body.kn-login-v2 .page-card, body.kn-login-v2 .page-card.login-content {
+  background: #fff !important; border: 0; border-radius: 24px !important;
+  box-shadow: 0 0 0 1px #0000000a, 0 24px 60px -24px #0e0e1029, 0 2px 6px #0000000a !important;
+  padding: 40px 40px 34px !important; margin: 0 auto !important; max-width: 440px; overflow: visible; gap: 26px;
+}
+body.kn-login-v2 .page-card::before { display: none !important; }
+body.kn-login-v2 .page-card-head { gap: 0; }
+/* new official KodeERP wordmark above "Welcome back"; a Latin logo, so always LTR (also in Arabic) */
+body.kn-login-v2 .kn-brand-row { display: flex !important; direction: ltr; justify-content: flex-start; margin: 0 0 26px; }
+body.kn-login-v2 .page-card-head .kn-brand-row img.kn-login-logo { display: block !important; height: 40px !important; width: auto !important; border-radius: 0 !important; }
+html[dir="rtl"] body.kn-login-v2 .kn-brand-row { justify-content: flex-end; }
+body.kn-login-v2 .page-card-head h4, body.kn-login-v2 .text-3xl-bold { font-size: 26px; font-weight: 600; letter-spacing: -.025em; line-height: 1.2; color: var(--kn-ink) !important; }
+body.kn-login-v2 .page-card-subtitle { font-size: 15px; color: var(--kn-mute) !important; }
+body.kn-login-v2 .page-card-body { gap: 18px !important; }
+body.kn-login-v2 .form-group label { font-size: 13.5px; font-weight: 600; color: var(--kn-ink-2) !important; transition: color .25s var(--kn-ease); }
+body.kn-login-v2 .form-group:focus-within label { color: var(--kn-blue-text) !important; }
+body.kn-login-v2 .form-control {
+  height: 50px !important; background: #f6f6f7 !important; border: 1px solid transparent !important; border-radius: 12px !important;
+  font-size: 16px; padding-inline: 15px; transition: border-color .25s var(--kn-ease), box-shadow .3s var(--kn-ease), background-color .25s var(--kn-ease), transform .45s var(--kn-sp-soft);
+}
+body.kn-login-v2 .form-control:hover { background: #f0f0f2 !important; }
+body.kn-login-v2 .form-control:focus { background: #fff !important; border-color: var(--kn-blue) !important; box-shadow: 0 0 0 4px #2a5ff01f, 0 10px 24px -10px #2a5ff055 !important; outline: 0; transform: translateY(-1px); }
+body.kn-login-v2 .email-field, body.kn-login-v2 .password-field { width: 100%; position: relative; }
+body.kn-login-v2 .password-field .form-control { padding-inline-end: 46px; }
+body.kn-login-v2 .password-field .toggle-password {
+  position: absolute; inset-inline-end: 8px; inset-inline-start: auto !important; right: auto; top: 50%; transform: translateY(-50%);
+  width: 34px !important; height: 34px !important; padding: 9px; border-radius: 10px; cursor: pointer; color: var(--kn-mute);
+  transition: background-color .2s, color .2s, transform .35s var(--kn-sp-pop);
+}
+html[dir="ltr"] body.kn-login-v2 .password-field .toggle-password { right: 8px; }
+html[dir="rtl"] body.kn-login-v2 .password-field .toggle-password { left: 8px; right: auto; }
+body.kn-login-v2 .password-field .toggle-password:hover { background: #0000000a; color: var(--kn-ink); }
+body.kn-login-v2 .password-field .toggle-password:active { transform: translateY(-50%) scale(.86); }
+body.kn-login-v2 .page-card-body a[href="#forgot"] { color: var(--kn-blue-text) !important; font-weight: 600; font-size: 13.5px; }
+body.kn-login-v2 .field-error:empty { display: none; }
+
+/* primary button: lift, shine sweep, press, spinner */
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"], body.kn-login-v2 .form-login button[type="submit"] {
+  position: relative; overflow: hidden; isolation: isolate; display: inline-flex; align-items: center; justify-content: center;
+  height: 52px !important; border-radius: 12px !important; font-size: 16px; font-weight: 600; letter-spacing: -.01em;
+  background: linear-gradient(180deg, #3b77ff 0%, #2a5ff0 100%) !important; border: 0 !important; color: #fff !important;
+  box-shadow: 0 1px 0 #ffffff40 inset, 0 10px 24px -6px #2f6bff80;
+  transition: transform .5s var(--kn-sp-pop), box-shadow .35s var(--kn-ease), filter .2s;
+}
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]::before {
+  content: ""; position: absolute; z-index: -1; inset-block: 0; left: -45%; width: 38%;
+  background: linear-gradient(100deg, #fff0 0%, #ffffff59 50%, #fff0 100%); transform: translateX(0) skewX(-18deg); opacity: 0;
+}
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:not([aria-busy])::after {
+  content: "\2192"; display: inline-block; margin-inline-start: 8px; font-weight: 500; transition: transform .45s var(--kn-sp-pop);
+}
+html[dir="rtl"] body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:not([aria-busy])::after { content: "\2190"; }
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 1px 0 #ffffff40 inset, 0 18px 34px -8px #2f6bff99; background: linear-gradient(180deg, #3b77ff 0%, #1f58e6 100%) !important; }
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:hover:not(:disabled)::after { transform: translateX(4px); }
+html[dir="rtl"] body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:hover:not(:disabled)::after { transform: translateX(-4px); }
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:active:not(:disabled) { transform: translateY(0) scale(.975); transition-duration: .12s; box-shadow: 0 1px 0 #ffffff30 inset, 0 6px 14px -6px #2f6bff80; }
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:focus-visible { outline: 0; box-shadow: 0 0 0 4px #2a5ff040, 0 10px 24px -6px #2f6bff80; }
+body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:disabled { opacity: .55; box-shadow: none; }
+body.kn-login-v2 .es-button[aria-busy="true"] { pointer-events: none; }
+body.kn-login-v2 .es-button .es-spinner { width: 20px; height: 20px; border-radius: 50%; border: 2.5px solid #ffffff55; border-top-color: #fff; display: inline-block; animation: knl-spin .7s linear infinite; }
+@keyframes knl-spin { to { transform: rotate(360deg); } }
+
+/* error banner + invalid state */
+body.kn-login-v2 .login-error-banner:not(.hidden) { border-radius: 12px; }
+body.kn-login-v2 .page-card-body.invalid .password-field .form-control { border-color: #e5484d !important; background: #fff6f6 !important; }
+body.kn-login-v2 .page-card.invalid-login { animation: none !important; }
+
+body.kn-login-v2 .signup-disabled-message .es-button { display: inline-flex; align-items: center; height: 44px; padding: 0 22px; border-radius: 12px;
+  background: var(--kn-blue-btn) !important; color: #fff !important; font-weight: 600; font-size: 15px; box-shadow: var(--kn-shadow-btn-blue); }
+body.kn-login-v2 .sign-up-message a, body.kn-login-v2 .for-forgot .sign-up-message a { color: var(--kn-blue-text) !important; font-weight: 600; }
+body.kn-login-v2 .kn-attribution { position: absolute; inset-inline: 0; bottom: 24px; margin: 0; max-width: none; font-size: 12px; }
+body.kn-login-v2 .kn-attribution a { color: var(--kn-mute) !important; text-decoration: none; }
+body.kn-login-v2 .kn-attribution a:hover { color: var(--kn-ink) !important; text-decoration: underline; }
+/* =================== RTL =================== */
+html[dir="rtl"] body.kn-login-v2 .page-card-head { align-items: stretch; text-align: right; }
+html[dir="rtl"] body.kn-login-v2 .page-card-body .text-right { text-align: left !important; }
+
+/* =================== mobile =================== */
+@media (max-width: 600px) {
+  body.kn-login-v2[data-path="login"] { background: #fff !important; }
+  body.kn-login-v2 #page-login { justify-content: flex-start; padding: 44px 22px 80px; }
+  body.kn-login-v2 .page-card, body.kn-login-v2 .page-card.login-content { box-shadow: none !important; padding: 0 !important; border-radius: 0 !important; }
+  body.kn-login-v2 .page-card-head .kn-brand-row img.kn-login-logo { height: 36px !important; }
+  body.kn-login-v2 .page-card-head h4, body.kn-login-v2 .text-3xl-bold { font-size: 24px; }
+}
+
+/* =================== motion (only when allowed) =================== */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes knl-rise { from { transform: translate3d(0, 18px, 0); } to { transform: none; } }
+  @keyframes knl-fade { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes knl-shake { 0%, 100% { transform: none; } 15% { transform: translateX(-10px); } 30% { transform: translateX(9px); } 45% { transform: translateX(-7px); } 60% { transform: translateX(5px); } 75% { transform: translateX(-3px); } 90% { transform: translateX(1px); } }
+  @keyframes knl-drop { from { opacity: 0; transform: translate3d(0, -8px, 0) scale(.97); } to { opacity: 1; transform: none; } }
+  @keyframes knl-card { from { opacity: 0; transform: translate3d(0, 22px, 0) scale(.98); } to { opacity: 1; transform: none; } }
+  body.kn-login-v2 #page-login .page-content-wrapper { animation: knl-card var(--kn-sp-soft-d) var(--kn-sp-soft) .05s both; }
+  /* form: fields stagger in on a soft spring (replays when switching login / forgot / signup) */
+  body.kn-login-v2 section:not(.hidden) .page-card-head,
+  body.kn-login-v2 section .page-card-body > .form-group,
+  body.kn-login-v2 section .page-card-actions,
+  body.kn-login-v2 section .sign-up-message { animation: knl-rise var(--kn-sp-soft-d) var(--kn-sp-soft) both, knl-fade .55s var(--kn-ease) both; }
+  body.kn-login-v2 section .page-card-head { animation-delay: .18s; }
+  body.kn-login-v2 section .page-card-body > .form-group:nth-of-type(2) { animation-delay: .28s; }
+  body.kn-login-v2 section .page-card-body > .form-group:nth-of-type(3) { animation-delay: .37s; }
+  body.kn-login-v2 section .page-card-body > .form-group:nth-of-type(4) { animation-delay: .46s; }
+  body.kn-login-v2 section .page-card-actions { animation-delay: .5s; }
+  body.kn-login-v2 section .sign-up-message { animation-delay: .6s; }
+  body.kn-login-v2 .kn-attribution { animation: knl-fade .8s var(--kn-ease) .9s both; }
+  body.kn-login-v2 .page-card-actions .es-button[data-variant="solid"]:hover:not(:disabled)::before { animation: knl-shine .9s var(--kn-ease) both; }
+  @keyframes knl-shine { from { opacity: 1; transform: translateX(0) skewX(-18deg); } to { opacity: 1; transform: translateX(420%) skewX(-18deg); } }
+  body.kn-login-v2 .page-card.invalid-login .form-login { animation: knl-shake .5s cubic-bezier(.36, .07, .19, .97) both; }
+  body.kn-login-v2 .login-error-banner:not(.hidden) { animation: knl-drop .55s var(--kn-sp-pop) both; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body.kn-login-v2 .page-card, body.kn-login-v2 .page-card * { animation: none !important; transition: none !important; }
+}

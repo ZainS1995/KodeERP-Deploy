@@ -1,0 +1,237 @@
+{
+ "created": [
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00301"
+  ],
+  [
+   "Purchase Invoice",
+   "ACC-PINV-2026-00043"
+  ],
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00302"
+  ],
+  [
+   "Purchase Invoice",
+   "ACC-PINV-2026-00044"
+  ],
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00303"
+  ],
+  [
+   "Purchase Invoice",
+   "ACC-PINV-2026-00045"
+  ]
+ ],
+ "results": {
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00301 cc=Malqa Branch | فرع الملقا - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "get_payment_entry",
+    "FAIL",
+    "Error: No module named 'frappe.core.doctype.sales+invoice'"
+   ],
+   [
+    "PI insert+submit",
+    "PASS",
+    "ACC-PINV-2026-00043 cc=Malqa Branch | فرع الملقا - NJB"
+   ],
+   [
+    "report General Ledger",
+    "PASS",
+    "rows=1820"
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=50"
+   ],
+   [
+    "report Profit and Loss Statement",
+    "PASS",
+    "rows=43"
+   ],
+   [
+    "report Balance Sheet",
+    "PASS",
+    "rows=43"
+   ],
+   [
+    "report Accounts Receivable",
+    "PASS",
+    "rows=12"
+   ],
+   [
+    "report Accounts Payable",
+    "PASS",
+    "rows=3"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ],
+  "najd.accounts.ar@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=ar"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00302 cc=Tahlia Branch | فرع التحلية - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "get_payment_entry",
+    "FAIL",
+    "Error: No module named 'frappe.core.doctype.sales+invoice'"
+   ],
+   [
+    "PI insert+submit",
+    "PASS",
+    "ACC-PINV-2026-00044 cc=Tahlia Branch | فرع التحلية - NJB"
+   ],
+   [
+    "report General Ledger",
+    "PASS",
+    "rows=1824"
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=50"
+   ],
+   [
+    "report Profit and Loss Statement",
+    "PASS",
+    "rows=43"
+   ],
+   [
+    "report Balance Sheet",
+    "PASS",
+    "rows=43"
+   ],
+   [
+    "report Accounts Receivable",
+    "PASS",
+    "rows=13"
+   ],
+   [
+    "report Accounts Payable",
+    "PASS",
+    "rows=4"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ],
+  "najd.olaya.manager@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00303 cc=Olaya Branch | فرع العليا - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "get_payment_entry",
+    "FAIL",
+    "Error: No module named 'frappe.core.doctype.sales+invoice'"
+   ],
+   [
+    "PI insert+submit",
+    "PASS",
+    "ACC-PINV-2026-00045 cc=Olaya Branch | فرع العليا - NJB"
+   ],
+   [
+    "report General Ledger",
+    "PASS",
+    "rows=593"
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=42"
+   ],
+   [
+    "report Profit and Loss Statement",
+    "PASS",
+    "rows=40"
+   ],
+   [
+    "report Balance Sheet",
+    "PASS",
+    "rows=35"
+   ],
+   [
+    "report Accounts Receivable",
+    "PASS",
+    "rows=6"
+   ],
+   [
+    "report Accounts Payable",
+    "PASS",
+    "rows=2"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ],
+  "cleanup": [
+   [
+    "Sales Invoice",
+    "ACC-SINV-2026-00303"
+   ]
+  ]
+ }
+}

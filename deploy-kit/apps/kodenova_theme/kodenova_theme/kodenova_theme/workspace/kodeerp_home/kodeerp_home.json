@@ -1,0 +1,97 @@
+{
+ "charts": [
+  {
+   "chart_name": "Sales Trend",
+   "label": "Sales Trend"
+  },
+  {
+   "chart_name": "Top Customers by Sales",
+   "label": "Top Customers by Sales"
+  },
+  {
+   "chart_name": "Receivables Ageing",
+   "label": "Receivables Ageing"
+  },
+  {
+   "chart_name": "Cash In vs Out",
+   "label": "Cash In vs Out"
+  }
+ ],
+ "content": "[{\"id\": \"kd00000001\", \"type\": \"custom_block\", \"data\": {\"col\": 12, \"custom_block_name\": \"KodeERP Greeting\"}}, {\"id\": \"kd00000002\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"Revenue This Month\"}}, {\"id\": \"kd00000003\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"Outstanding Receivables\"}}, {\"id\": \"kd00000004\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"Payables Due\"}}, {\"id\": \"kd00000005\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"Stock Value\"}}, {\"id\": \"kd00000006\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"New Customers\"}}, {\"id\": \"kd00000007\", \"type\": \"number_card\", \"data\": {\"col\": 4, \"number_card_name\": \"Overdue Invoices\"}}, {\"id\": \"kd00000008\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Quick actions</b></span>\", \"col\": 12}}, {\"id\": \"kd00000009\", \"type\": \"custom_block\", \"data\": {\"col\": 12, \"custom_block_name\": \"KodeERP Quick Actions\"}}, {\"id\": \"kd00000010\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Performance</b></span>\", \"col\": 12}}, {\"id\": \"kd00000011\", \"type\": \"chart\", \"data\": {\"col\": 6, \"chart_name\": \"Sales Trend\"}}, {\"id\": \"kd00000012\", \"type\": \"chart\", \"data\": {\"col\": 6, \"chart_name\": \"Top Customers by Sales\"}}, {\"id\": \"kd00000013\", \"type\": \"chart\", \"data\": {\"col\": 6, \"chart_name\": \"Receivables Ageing\"}}, {\"id\": \"kd00000014\", \"type\": \"chart\", \"data\": {\"col\": 6, \"chart_name\": \"Cash In vs Out\"}}, {\"id\": \"kd00000015\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Invoices</b></span>\", \"col\": 12}}, {\"id\": \"kd00000016\", \"type\": \"quick_list\", \"data\": {\"col\": 6, \"quick_list_name\": \"Recent Invoices\"}}, {\"id\": \"kd00000017\", \"type\": \"quick_list\", \"data\": {\"col\": 6, \"quick_list_name\": \"Overdue Invoices\"}}]",
+ "creation": "2026-10-19 23:40:00.000000",
+ "custom_blocks": [
+  {
+   "custom_block_name": "KodeERP Greeting",
+   "label": "KodeERP Greeting"
+  },
+  {
+   "custom_block_name": "KodeERP Quick Actions",
+   "label": "KodeERP Quick Actions"
+  }
+ ],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "external_link": "",
+ "for_user": "",
+ "hide_custom": 1,
+ "icon": "house",
+ "idx": 0,
+ "indicator_color": "",
+ "is_hidden": 0,
+ "label": "KodeERP Home",
+ "link_to": "",
+ "link_type": "",
+ "links": [],
+ "modified": "2026-10-19 23:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "Kodenova Theme",
+ "name": "KodeERP Home",
+ "number_cards": [
+  {
+   "label": "Revenue This Month",
+   "number_card_name": "Revenue This Month"
+  },
+  {
+   "label": "Outstanding Receivables",
+   "number_card_name": "Outstanding Receivables"
+  },
+  {
+   "label": "Payables Due",
+   "number_card_name": "Payables Due"
+  },
+  {
+   "label": "Stock Value",
+   "number_card_name": "Stock Value"
+  },
+  {
+   "label": "New Customers",
+   "number_card_name": "New Customers"
+  },
+  {
+   "label": "Overdue Invoices",
+   "number_card_name": "Overdue Invoices"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [
+  {
+   "document_type": "Sales Invoice",
+   "label": "Recent Invoices",
+   "quick_list_filter": "[[\"Sales Invoice\", \"docstatus\", \"=\", 1]]"
+  },
+  {
+   "document_type": "Sales Invoice",
+   "label": "Overdue Invoices",
+   "quick_list_filter": "[[\"Sales Invoice\", \"status\", \"=\", \"Overdue\"]]"
+  }
+ ],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 0.5,
+ "shortcuts": [],
+ "standard": 1,
+ "title": "KodeERP Home",
+ "type": "Workspace"
+}

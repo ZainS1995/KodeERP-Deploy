@@ -1,0 +1,19 @@
+{
+	email {$LETSENCRYPT_EMAIL}
+}
+
+# Each hostname is served by the KodeERP site with exactly the same name (bench site = domain).
+# Caddy keeps the original Host header, and the frontend routes by it (FRAPPE_SITE_NAME_HEADER=$host).
+{$ERP_DOMAIN}, {$FNB_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy frontend:8080 {
+		header_up X-Forwarded-Proto https
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+		-X-Powered-By
+	}
+}

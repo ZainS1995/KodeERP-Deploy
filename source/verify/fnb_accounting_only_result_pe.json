@@ -1,0 +1,117 @@
+{
+ "created": [
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00304"
+  ],
+  [
+   "Payment Entry",
+   "ACC-PAY-2026-00041"
+  ],
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00305"
+  ],
+  [
+   "Payment Entry",
+   "ACC-PAY-2026-00042"
+  ],
+  [
+   "Sales Invoice",
+   "ACC-SINV-2026-00306"
+  ],
+  [
+   "Payment Entry",
+   "ACC-PAY-2026-00043"
+  ]
+ ],
+ "results": {
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00304 cc=Malqa Branch | فرع الملقا - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "Payment Entry insert+submit",
+    "PASS",
+    "ACC-PAY-2026-00041"
+   ]
+  ],
+  "najd.accounts.ar@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=ar"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00305 cc=Tahlia Branch | فرع التحلية - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "Payment Entry insert+submit",
+    "PASS",
+    "ACC-PAY-2026-00042"
+   ]
+  ],
+  "najd.olaya.manager@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only accounting sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "SI insert",
+    "PASS",
+    "ACC-SINV-2026-00306 cc=Olaya Branch | فرع العليا - NJB total=10.0"
+   ],
+   [
+    "SI submit",
+    "PASS",
+    ""
+   ],
+   [
+    "Payment Entry insert+submit",
+    "PASS",
+    "ACC-PAY-2026-00043"
+   ]
+  ],
+  "cleanup": [
+   [
+    "Sales Invoice",
+    "ACC-SINV-2026-00306"
+   ]
+  ]
+ }
+}

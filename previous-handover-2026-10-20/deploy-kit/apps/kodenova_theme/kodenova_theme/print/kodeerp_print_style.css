@@ -1,0 +1,35 @@
+/* KodeERP Print Style (installed as Print Style "KodeERP" by kodenova_theme.branding). */
+@font-face { font-family: "Urbanist Variable"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/assets/kodenova_theme/fonts/urbanist-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Inter Variable"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/assets/kodenova_theme/fonts/inter-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Noto Sans Arabic Variable"; font-style: normal; font-weight: 100 900; font-display: swap;
+  src: url("/assets/kodenova_theme/fonts/noto-sans-arabic-arabic-wght-normal.woff2") format("woff2"); }
+.print-format, .print-format td, .print-format th, .print-format p, .print-format div {
+  font-family: "Urbanist Variable", "Urbanist", "Noto Sans Arabic Variable", "Inter Variable", Arial, sans-serif; color: #0e0e10;
+}
+.print-format { font-size: 9.5pt; }
+[dir="rtl"] .print-format, [dir="rtl"] .print-format td, [dir="rtl"] .print-format th, .print-format :lang(ar) {
+  font-family: "Noto Sans Arabic Variable", "Noto Sans Arabic", Arial, sans-serif;
+}
+.print-format h1, .print-format h2, .print-format h3, .print-format h4 { font-weight: 700; letter-spacing: -0.01em; color: #0e0e10; }
+.print-format .print-heading { border-bottom: 3px solid #2f6bff; padding-bottom: 6px; margin-bottom: 18px; }
+.print-format .print-heading h2 { color: #0e0e10; }
+.print-format .print-heading h2 small, .print-format .print-heading .sub-heading { color: #c2410c; }
+.print-format .table { border-color: #ececef; }
+.print-format .table > thead > tr > th { background: #eef3ff; color: #1a3c94; border-color: #ccdbff; font-weight: 700; }
+.print-format .table > tbody > tr > td { border-color: #ececef; }
+.print-format .text-right, .print-format td.text-right, .print-format [data-fieldtype="Currency"], .print-format [data-fieldtype="Float"] {
+  font-family: "Inter Variable", "Inter", Arial, sans-serif; font-variant-numeric: tabular-nums;
+}
+.print-format .section-break { border-color: #ececef; }
+.print-format .indicator, .print-format .draft-heading { color: #c2410c; }
+.kn-letterhead { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px;
+  border-bottom: 3px solid #0e0e10; position: relative; }
+.kn-letterhead::after { content: ""; position: absolute; left: 0; bottom: -3px; width: 120px; height: 3px; background: #ff6a3d; }
+.kn-letterhead .kn-lh-brand { display: flex; align-items: center; gap: 10px; }
+.kn-letterhead img { height: 40px; width: auto; border-radius: 0; display: block; }
+.kn-letterhead .kn-lh-name { font: 800 18pt "Urbanist Variable", "Urbanist", Arial, sans-serif; letter-spacing: -0.02em; color: #0e0e10; }
+.kn-letterhead .kn-lh-name span { color: #c2410c; }
+.kn-letterhead .kn-lh-meta { text-align: right; font: 500 8.5pt "Urbanist Variable", Arial, sans-serif; color: #6c6c74; }
+.kn-letterhead .kn-lh-meta b { color: #2556d9; }

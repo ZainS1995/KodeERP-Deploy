@@ -1,0 +1,9 @@
+{
+  "_comment": "Exact app pins of the KodeERP demo bench (2026-10-21). frappe/erpnext come from the base image frappe/erpnext:v16.51.1 (digest in deploy-kit/Containerfile). ksa_compliance and zatca_erpgulf are present in the dev bench but NOT installed on fnb or kodeerp sites and NOT in the image; listed only for reference.",
+  "frappe":         {"version": "16.52.0", "url": "https://github.com/frappe/frappe",  "tag": "v16.52.0", "commit": "4515014c87ece6cb20ee91d2cfb121c5cbd1ff4a", "installed": true},
+  "erpnext":        {"version": "16.51.1", "url": "https://github.com/frappe/erpnext", "tag": "v16.51.1", "commit": "5af6561f5aa48104559692fb4fd82f2580e8d338", "installed": true},
+  "hrms":           {"version": "16.51.0", "url": "https://github.com/frappe/hrms",    "tag": "v16.51.0", "commit": "2478afc7a8f4959d500f6d17522853f0d244e38f", "installed": true},
+  "kodenova_theme": {"version": "0.0.1",   "url": "this package: source/app/kodenova_theme.bundle (private, no public repo)", "branch": "version-16", "commit": "5a5b239", "installed": true},
+  "ksa_compliance": {"version": "0.61.11", "url": "https://github.com/lavaloon-eg/ksa_compliance", "branch": "master", "commit": "91250282f4fe936e015bb0208041f29ae3c54a39", "installed": false},
+  "zatca_erpgulf":  {"version": "3.0.1",   "url": "https://github.com/ERPGulf/zatca_erpgulf", "branch": "main", "commit": "3f69ce03438537e0e13e0c86747d57af7e2e9bf8", "installed": false}
+}

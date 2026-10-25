@@ -1,0 +1,46 @@
+{
+ "results": {
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "consumption draft",
+    "PASS",
+    "MAT-STE-2026-00070"
+   ],
+   [
+    "consumption: explode recipe x10",
+    "PASS",
+    "[('RM-001', 1.5), ('RM-006', 10.0), ('RM-014', 0.2), ('RM-011', 0.1)]"
+   ],
+   [
+    "consumption save",
+    "PASS",
+    ""
+   ],
+   [
+    "consumption Stock Entry submit",
+    "PASS",
+    "MAT-STE-2026-00070 value=47.220000000000006 SAR"
+   ],
+   [
+    "Accounting Period (lock Jan 2025) insert",
+    "PASS",
+    "QA TEST Jan 2025 - NJB"
+   ],
+   [
+    "posting into locked period is blocked",
+    "PASS",
+    "blocked: You cannot create a Journal Entry within the closed Accounting Period QA TEST Jan 2025 - NJB"
+   ],
+   [
+    "cleanup cancel Journal Entry ACC-JV-2026-00108",
+    "FAIL",
+    "Cannot delete or cancel because Journal Entry ACC-JV-2026-00108 is linked with Journal Entry ACC-JV-2026-00110 "
+   ],
+   [
+    "cleanup cancel Asset ACC-ASS-2026-00005",
+    "FAIL",
+    "Cannot delete or cancel because Asset ACC-ASS-2026-00005 is linked with Journal Entry ACC-JV-2026-00108 at Row: 1"
+   ]
+  ]
+ }
+}

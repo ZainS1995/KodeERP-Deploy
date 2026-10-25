@@ -1,0 +1,24 @@
+# HTTPS front door: Caddy gets and renews Let's Encrypt certificates automatically for both hostnames.
+# Needs in .env: ERP_DOMAIN, FNB_DOMAIN, LETSENCRYPT_EMAIL. DNS A records for both must already point to this server,
+# and ports 80 + 443 must be open. Usage:
+#   docker compose -f compose.yaml -f compose.caddy.yaml up -d
+services:
+  frontend:
+    ports: !reset []          # plain 8080 is no longer published; only Caddy is reachable from outside
+  caddy:
+    image: caddy:2.8-alpine
+    restart: unless-stopped
+    networks: [kodeerp]
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment:
+      ERP_DOMAIN: ${ERP_DOMAIN:?set ERP_DOMAIN in .env}
+      FNB_DOMAIN: ${FNB_DOMAIN:?set FNB_DOMAIN in .env}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL:?set LETSENCRYPT_EMAIL in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on: [frontend]
+volumes:
+  caddy-data:
+  caddy-config:

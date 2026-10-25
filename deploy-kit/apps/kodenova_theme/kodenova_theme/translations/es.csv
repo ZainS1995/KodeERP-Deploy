@@ -1,0 +1,266 @@
+"<a href=""https://docs.frappe.io/framework/user/en/api/rest#1-token-based-authentication"" target=""_blank"">
+  Click here to learn about token-based authentication
+</a>","<a href=""https://kodenova.com"" target=""_blank"">
+  Haga clic aquí para conocer la autenticación basada en token
+</a>"
+"<div style=""margin-bottom:10px; color: var(--gray-500) !important;"">Define alternate units for this item. Eg: 1 Box = 12 Nos, set conversion factor as 12. (Will also apply for variants) <a href=""https://docs.frappe.io/erpnext/uom"" target=""_blank"">Learn more &#8594;</a></div>","<div style=""margin-bottom:10px; color: var(--gray-500) !important;"">Defina unidades alternativas para este artículo. Ej.: 1 Caja = 12 Ud., establezca el factor de conversión como 12. (También se aplicará a las variantes) <a href=""https://kodenova.com"" target=""_blank"">Más información &#8594;</a></div>"
+"A Frappe Framework instance can function as an OAuth Client, Resource, or Authorization server. This DocType contains settings related to all three.","Una instancia de KodeERP Framework puede funcionar como cliente OAuth, recurso o servidor de autorización. Este DocType contiene configuración relacionada con los tres."
+Active Stock Items,Artículos en inventario activos
+Active customers,Clientes activos
+Active items,Artículos activos
+Active suppliers,Proveedores activos
+Add a product or service to sell or stock.,Agrega un producto o servicio para vender o almacenar.
+Allowed Users is not required as Frappe CRM is already installed on the site.,Usuarios permitidos no es requerido porque KodeERP CRM ya está instalado en el sitio.
+Allowed Users is required for data synchronization from remote Frappe CRM site.,Usuarios permitidos es requerido para la sincronización de datos desde un sitio remoto de KodeERP CRM.
+Apply,Aplicar
+Areas,Áreas
+Auto-allocates,Asignación automática
+Back to KodeERP,Volver a KodeERP
+Back to Login,Volver a iniciar sesión
+Bank Reconciliation (old),Conciliación bancaria (anterior)
+Bank entries,Movimientos bancarios
+Bank or cash,Banco o efectivo
+Barcode ready,Listo para código de barras
+Bill a customer in under a minute.,Factura a un cliente en menos de un minuto.
+Billed this month,Facturado este mes
+Branded print layout,Impresión con tu marca
+Budgeting,Presupuestos
+"Bundled web fonts are used under the SIL Open Font License, Version 1.1.","Las fuentes web incluidas se usan bajo la SIL Open Font License, versión 1.1."
+Business management by Kodenova.,Gestión empresarial por Kodenova.
+"By default, the Supplier Name is set as per the Supplier Name entered. If you want Suppliers to be named by a <a href='https://docs.erpnext.com/docs/user/manual/en/setting-up/settings/naming-series' target='_blank'>Naming Series</a> choose the 'Naming Series' option.","Por defecto, el Nombre del Proveedor se establece según el Nombre del Proveedor introducido. Si desea que los Proveedores sean nombrados por una Serie de <a href='https://kodenova.com' target='_blank'>Nombres</a> elija la opción 'Serie de Nombres'."
+COA Importer,Importador de catálogo de cuentas
+Cash In vs Out,Entradas vs. salidas de efectivo
+Cash Received This Month,Cobrado este mes
+Cash in,Entradas
+Cash out,Salidas
+Choose the language for KodeERP. The page reloads to apply it.,Elige el idioma de KodeERP. La página se recargará para aplicarlo.
+Click to clear this filter,Haz clic para quitar este filtro
+Click to filter the list,Haz clic para filtrar la lista
+Companies,Empresas
+Consolidated Report,Reporte consolidado
+Currency,Moneda
+Customer Group,Grupo de clientes
+Daily work,Trabajo diario
+Delivered this month,Entregado este mes
+Deliveries This Month,Entregas del mes
+Distributed under the GNU General Public License v3 WITHOUT ANY WARRANTY.,Distribuido bajo la Licencia Pública General GNU v3 SIN NINGUNA GARANTÍA.
+Due Date,Fecha de vencimiento
+Due Date Based On,Fecha de vencimiento basada en
+ERPNext Integrations,KodeERP Integrations
+ERPNext User ID,ERP ID de usuario siguiente
+ERPNext will make a stock ledger entry for each transaction of this item. Keep unchecked for non-stock or service items.,KodeERP creará un asiento en el libro de stock por cada transacción de este artículo. Déjelo sin marcar en artículos sin stock o de servicio.
+Enable Frappe CRM Data Synchronization,Activar la sincronización de datos de KodeERP CRM
+"Enter static url parameters here (Eg. sender=ERPNext, username=ERPNext, password=1234 etc.)","Introduzca los parámetros de URL aquí (Ej. sender=KodeERP, username=KodeERP, password=1234 etc.)"
+"Error connecting to QZ Tray Application...<br><br> You need to have QZ Tray application installed and running, to use the Raw Print feature.<br><br><a target=""_blank"" href=""https://qz.io/download/"">Click here to Download and install QZ Tray</a>.<br> <a target=""_blank"" href=""https://erpnext.com/docs/user/manual/en/setting-up/print/raw-printing"">Click here to learn more about Raw Printing</a>.","Error al conectarse a la aplicación QZ Tray...<br><br> Debe tener la aplicación QZ Tray instalada y en ejecución, para usar la función de Impresión sin formato.<br><br> <a href=""https://qz.io/download/"" target=""_blank"">Haga clic aquí para descargar e instalar la bandeja QZ</a>. <br> <a href=""https://kodenova.com"" target=""_blank"">Haga clic aquí para obtener más información sobre la impresión sin procesar</a>."
+FX Revaluation,Revaluación cambiaria
+Failed to request login to Frappe Cloud,No se pudo solicitar el inicio de sesión en KodeERP Cloud
+"For help see <a href=""https://frappeframework.com/docs/user/en/guides/portal-development/web-forms"" target=""_blank"" rel=""noopener noreferrer"">Client Script API and Examples</a>","Para obtener ayuda, consulte <a href=""https://kodenova.com"" target=""_blank"" rel=""noopener noreferrer"">Ejemplos y API de script de cliente</a>"
+Forecasting,Pronósticos
+Frappe,Frapé
+Frappe CRM,KodeERP CRM
+Frappe CRM Allowed User,Usuario permitido de KodeERP CRM
+Frappe CRM data synchronization is not enabled on ERPNext. Contact System Manager of ERPNext.,La sincronización de datos de KodeERP CRM no está activada en KodeERP. Contacte con el administrador del sistema de KodeERP.
+Frappe Framework Version,Versión del KodeERP Framework
+Frappe HR,KodeERP People
+Frappe Mail,KodeERP Mail
+Frappe Mail OAuth Error,Error OAuth KodeERP Mail
+Frappe Mail Site,Sitio KodeERP Mail
+Frappe School,KodeERP School
+Frappe Support,Soporte de KodeERP
+Frappe Support,Soporte de KodeERP,Label of a Navbar Item
+"Frappe no longer uses Gravatar because it can disclose hashed email addresses to a third-party service. To fully stop this behavior, existing Gravatar image URLs must be deleted.",KodeERP ya no usa Gravatar porque puede revelar direcciones de correo con hash a un servicio de terceros. Para detenerlo del todo hay que eliminar las URLs de imagen de Gravatar existentes.
+Frappe page builder using components,Constructor de páginas KodeERP mediante componentes
+General Ledger,Libro mayor
+Get to know KodeERP,Conoce KodeERP
+Get to know KodeERP People,Conoce KodeERP People
+Good afternoon,Buenas tardes
+Good evening,Buenas noches
+Good morning,Buenos días
+Grand Total,Total general
+Guidelines and policies on vulnerability reporting. Defaults to `https://frappe.io/security`,Directrices y políticas sobre la notificación de vulnerabilidades. Valor predeterminado: `https://kodenova.com
+"Here is how the business is doing today: sales, cash, receivables and stock in one place.","Así va el negocio hoy: ventas, efectivo, cuentas por cobrar e inventario en un solo lugar."
+"If enabled, formula for <b>Qty to Order</b>: <br>
+Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"">Projected Qty</a>. <br> This helps avoid over-ordering.","Si está activado, la fórmula de <b>Cant. a pedir</b> es:<br>
+Cant. necesaria (LdM) - <a href=""https://kodenova.com"">Cant. proyectada</a>. <br> Esto ayuda a evitar pedidos excesivos."
+"If enabled, formula for <b>Required Qty</b>: <br>
+Required Qty (BOM) - <a href=""https://docs.frappe.io/erpnext/user/manual/en/projected-quantity"">Projected Qty</a>. <br> This helps avoid over-ordering.","Si está activado, la fórmula de <b>Cant. necesaria</b> es:<br>
+Cant. necesaria (LdM) - <a href=""https://kodenova.com"">Cant. proyectada</a>. <br> Esto ayuda a evitar pedidos excesivos."
+"If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice or Receipt without creating a Purchase Order first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Order' checkbox in the Supplier master.","Si esta opción está configurada como &#39;Sí&#39;, KodeERP le impedirá crear una Factura o Recibo de Compra sin crear primero una Orden de Compra. Esta configuración se puede anular para un proveedor en particular activando la casilla de verificación &#39;Permitir la creación de facturas de compra sin orden de compra&#39; en el maestro de proveedores."
+"If this option is configured 'Yes', ERPNext will prevent you from creating a Purchase Invoice without creating a Purchase Receipt first. This configuration can be overridden for a particular supplier by enabling the 'Allow Purchase Invoice Creation Without Purchase Receipt' checkbox in the Supplier master.","Si esta opción está configurada como &#39;Sí&#39;, KodeERP le impedirá crear una Factura de Compra sin crear primero un Recibo de Compra. Esta configuración se puede anular para un proveedor en particular activando la casilla de verificación &quot;Permitir la creación de facturas de compra sin recibo de compra&quot; en el maestro de proveedores."
+"If you are maintaining stock of this Item in your Inventory, ERPNext will make a stock ledger entry for each transaction of this item.","Si mantiene existencias de este artículo en su inventario, KodeERP realizará una entrada en el libro de existencias para cada transacción de este artículo."
+"If you are using loans in salary slips, please install the {0} app from Frappe Cloud Marketplace or GitHub to continue using loan integration with payroll.","If you are using loans in salary slips, please install the {0} app from KodeERP Cloud Marketplace or GitHub to continue using loan integration with payroll."
+Install Frappe HR,Install KodeERP People
+Insufficient Permission for {0},No tienes permiso para abrir {0}.
+Invoice,Factura
+Invoices,Facturas
+Item,Artículo
+Item Code,Código del artículo
+Item Group,Grupo de artículos
+Item Name,Nombre del artículo
+Item Reports,Reportes de artículos
+Item Where Used,Dónde se usa el artículo
+Items To Be Received,Artículos por recibir
+KodeERP Home,Inicio KodeERP
+KodeERP Settings,Configuración de KodeERP
+KodeERP includes open-source software.,KodeERP incluye software de código abierto.
+KodeERP is built on the open-source software listed below. It is not affiliated with or endorsed by the authors of these projects. Their copyright and license notices are reproduced here and in the LICENSE files shipped with the source code.,KodeERP está construido sobre el software de código abierto que se indica a continuación. No está afiliado ni respaldado por los autores de estos proyectos. Sus avisos de copyright y de licencia se reproducen aquí y en los archivos LICENSE incluidos con el código fuente.
+Language,Idioma
+"Learn about <a href=""https://docs.frappe.io/erpnext/user/manual/en/common_party_accounting"" rel=""noopener noreferrer"">Common Party</a>","Más información sobre <a href=""https://kodenova.com"" rel=""noopener noreferrer"">parte común</a>"
+License text,Texto de la licencia
+Low stock,Inventario bajo
+Make Payment Entry,Registrar pago
+Manage Dock,Administrar barra
+Material Receipt,Recepción de material
+Moved this month,Movido este mes
+Movement Reports,Reportes de movimientos
+My Settings,Mi configuración
+Net cash this month,Efectivo neto del mes
+Net sales,Ventas netas
+New Customers,Clientes nuevos
+New invoice,Nueva factura
+New item,Nuevo artículo
+"New line separated list of allowed public client URLs (eg <code>https://frappe.io</code>), or <code>*</code> to accept all.
+<br>
+Public clients are restricted by default.","Lista separada por líneas de URLs de clientes públicos permitidos (ej. <code>https://kodenova.com</code>), o <code>*</code> para aceptar todos.
+<br>
+Los clientes públicos están restringidos por defecto."
+New quotation,Nueva cotización
+New this month,Nuevos este mes
+No payments recorded in the last 6 months.,No hay pagos registrados en los últimos 6 meses.
+No purchase invoices this quarter.,No hay facturas de compra este trimestre.
+No sales invoices in the last 6 months yet.,Aún no hay facturas de venta en los últimos 6 meses.
+No stock on hand yet.,Aún no hay inventario disponible.
+Not Permitted,Acceso restringido
+Nothing here yet,Nada por aquí todavía
+Nothing outstanding. Every invoice is paid.,Nada pendiente. Todas las facturas están pagadas.
+On hold,En espera
+"One layer of one app's dock. Three of them share this table, told apart by `app`, `user` and `standard`: the app's own dock, which an app ships as an exported document and a developer authors; the site's arrangement of it, curated by a Workspace Manager and applying to everyone; and one person's own, applied last and winning. A dock belongs to an app, so arranging ERPNext's rail does not touch frappe's -- and a layer is addressed by app plus user rather than by user alone. Same shape at all three, because the rows are identical and the parent is what says whose they are; see `Custom Sidebar`, which layers a sidebar the same way in a table of its own.","One layer of one app's dock. Three of them share this table, told apart by `app`, `user` and `standard`: the app's own dock, which an app ships as an exported document and a developer authors; the site's arrangement of it, curated by a Workspace Manager and applying to everyone; and one person's own, applied last and winning. A dock belongs to an app, so arranging KodeERP's rail does not touch frappe's -- and a layer is addressed by app plus user rather than by user alone. Same shape at all three, because the rows are identical and the parent is what says whose they are; see `Custom Sidebar`, which layers a sidebar the same way in a table of its own."
+One-click to order,A orden con un clic
+Open Frappe CRM,Abrir KodeERP CRM
+Open Frappe Helpdesk,Abrir KodeERP Helpdesk
+Open Purchase Orders,Órdenes de compra abiertas
+Open Quotations,Cotizaciones abiertas
+Open-source licenses,Licencias de código abierto
+Opening Invoice Tool,Herramienta de facturas de apertura
+Opening entries,Asientos de apertura
+Ordered this month,Pedido este mes
+Outstanding Receivables,Cuentas por cobrar pendientes
+Overdue,Vencido
+Overdue Bills,Facturas de proveedor vencidas
+Overdue Invoices,Facturas vencidas
+Page not found,Página no encontrada
+Paid this month,Pagado este mes
+Payables Due,Pagos por vencer
+Performance,Desempeño
+"Permission is hereby granted, free of charge, to any person obtaining a copy of this software, subject to the conditions of the MIT License. THE SOFTWARE IS PROVIDED ""AS IS"", WITHOUT WARRANTY OF ANY KIND.","Se concede permiso, de forma gratuita, a cualquier persona que obtenga una copia de este software, sujeto a las condiciones de la Licencia MIT. EL SOFTWARE SE PROPORCIONA ""TAL CUAL"", SIN GARANTÍA DE NINGÚN TIPO."
+Please add atleast one user on Allowed Users to allow Data Synchronization from Frappe CRM site.,Añada al menos un usuario en Usuarios permitidos para permitir la sincronización de datos desde el sitio de KodeERP CRM.
+"Please enter your email, we'll send you password reset link",Ingresa tu correo y te enviaremos un enlace para restablecer la contraseña
+Posted this month,Contabilizado este mes
+Price and stock,Precio e inventario
+Purchase Trend,Tendencia de compras
+Purchases This Month,Compras del mes
+Quick actions,Acciones rápidas
+Receivables Ageing,Antigüedad de cuentas por cobrar
+Receive payment,Recibir pago
+Received this month,Cobrado este mes
+Recent Invoices,Facturas recientes
+Record money in and clear open invoices.,Registra cobros y cierra facturas abiertas.
+Reports & Tools,Reportes y herramientas
+Reports & tools,Reportes y herramientas
+Return,Devolución
+Reusable items,Artículos reutilizables
+Revenue This Month,Ingresos del mes
+Sales Trend,Tendencia de ventas
+Send prices and convert to an order later.,Envía precios y conviértelos en orden después.
+Sent this month,Enviadas este mes
+Serial & Batch,Serie y lote
+Shares as PDF,Se comparte en PDF
+Source code,Código fuente
+Stock Entries This Month,Movimientos de inventario del mes
+Stock Reports,Reportes de inventario
+Stock Value,Valor del inventario
+Stock Value by Warehouse,Valor del inventario por almacén
+Stock items,Artículos de inventario
+Sub-domain provided by erpnext.com,Sub-dominio proporcionado por kodenova.com
+Switch language,Cambiar idioma
+Switch to Frappe CRM,Cambiar a KodeERP CRM
+Synthetic demo data,Datos de demostración sintéticos
+Tax Template,Plantilla de impuestos
+The page you are looking for doesn't exist or has moved.,La página que buscas no existe o se ha movido.
+"The stock for the item {0} in the {1} warehouse was negative on the {2}. You should create a positive entry {3} before the date {4} and time {5} to post the correct valuation rate. For more details, please read the <a href='https://docs.erpnext.com/docs/user/manual/en/stock-adjustment-cogs-with-negative-stock'>documentation<a>.","El stock del artículo {0} en el almacén {1} era negativo el {2}. Debe crear una entrada positiva {3} antes de la fecha {4} y la hora {5} para registrar la tasa de valoración correcta. Para obtener más detalles, lea la documentación <a href='https://kodenova.com'><a>."
+"There are two options to maintain valuation of stock. FIFO (first in - first out) and Moving Average. To understand this topic in detail please visit <a href='https://docs.frappe.io/erpnext/user/manual/en/calculation-of-valuation-rate-in-fifo-and-moving-average' target='_blank'>Item Valuation, FIFO and Moving Average.</a>","Existen dos opciones para mantener la valoración de las existencias: FIFO (primero en entrar, primero en salir) y media móvil. Para comprender este tema en detalle, visite <a href='https://kodenova.com' target='_blank'>Valoración de artículos, FIFO y media móvil.</a>"
+This action will unlink this account from any external service integrating ERPNext with your bank accounts. It cannot be undone. Are you certain ?,Esta acción desvinculará esta cuenta de cualquier servicio externo que integre KodeERP con sus cuentas bancarias. No se puede deshacer. Estas seguro ?
+"This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, version 3. It is distributed WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.","Este programa es software libre: puede redistribuirlo y/o modificarlo bajo los términos de la Licencia Pública General GNU publicada por la Free Software Foundation, versión 3. Se distribuye SIN NINGUNA GARANTÍA; ni siquiera la garantía implícita de COMERCIABILIDAD o IDONEIDAD PARA UN PROPÓSITO PARTICULAR."
+To bill,Por facturar
+To deliver,Por entregar
+To receive,Por recibir
+Tools,Herramientas
+Top Customers by Sales,Mejores clientes por ventas
+Top customers appear after your first invoices.,Los mejores clientes aparecen después de tus primeras facturas.
+Unpaid,No pagado
+Update from Frappe Cloud,Actualizar desde KodeERP Cloud
+User not allowed to synchronize data from Frappe CRM on ERPNext. Contact System Manager of ERPNext.,El usuario no tiene permiso para sincronizar datos de KodeERP CRM en KodeERP. Contacte con el administrador del sistema de KodeERP.
+User {0} does not have doctype access via role permission for document {1},Aún no tienes acceso a {1}. Pide permiso a tu administrador de KodeERP.
+Validate Frappe Mail Settings,Validar la configuración de KodeERP Mail
+Variants,Variantes
+Version,Versión
+Visit Frappe Support Portal,Visitar el portal de soporte de KodeERP
+WARNING: Loan Management module has been separated from ERPNext.,WARNING: Loan Management module has been separated from KodeERP.
+Website,Sitio web
+"Website, email or phone where vulnerabilities can be reported. Defaults to `https://security.frappe.io`","Sitio web, correo electrónico o teléfono donde se pueden reportar vulnerabilidades. Por defecto es `https://kodenova.com`"
+Welcome back,Bienvenido de nuevo
+Welcome! Please sign in to continue.,¡Bienvenido! Inicia sesión para continuar.
+With outstanding,Con saldo pendiente
+With payables,Con saldo por pagar
+Won,Ganadas
+[Important] [ERPNext] Auto Reorder Errors,[Importante] [KodeERP] Errores de reorden automático
+below {0} units,menos de {0} unidades
+this month,este mes
+{0} due,{0} por cobrar
+{0} entries,{0} registros
+{0} entry,{0} registro,one
+{0} invoice,{0} factura,one
+{0} invoices,{0} facturas
+{0} open,{0} abiertas
+{0} open,{0} abierta,one
+{0} order,{0} orden,one
+{0} orders,{0} órdenes
+{0} overdue,{0} vencidas
+{0} overdue,{0} vencida,one
+{0} paid,{0} pagadas
+{0} paid,{0} pagada,one
+{0} payment,{0} pago,one
+{0} payments,{0} pagos
+"Accounting, sales, inventory and e-invoicing in one place.","Contabilidad, ventas, inventario y facturación electrónica en un solo lugar."
+Built for e-invoicing,Diseñado para la facturación electrónica
+"English, Spanish and Arabic","En español, inglés y árabe"
+Real-time dashboards,Paneles en tiempo real
+by Kodenova,por Kodenova
+Your ERP. Your data. Your business.,Tu ERP. Tus datos. Tu negocio.
+No activity in the last 6 months,Sin actividad en los últimos 6 meses
+No trend data,Sin datos de tendencia
+No data yet,Aún sin datos
+vs last month,vs mes anterior
+vs last month-end,vs cierre del mes anterior
+same days,mismos días
+share of submitted invoices still unpaid,facturas validadas aún sin pagar
+share of submitted bills still unpaid,facturas de compra validadas sin pagar
+overdue share of all outstanding,parte vencida del saldo pendiente
+active share of all items,artículos activos del total
+stock items share of active items,artículos de stock de los activos
+low-stock share of stock items,artículos con poco stock de los de stock
+"customers with a balance, of active customers","clientes con saldo, de los activos"
+"company customers, of active customers","clientes empresa, de los activos"
+"suppliers we owe, of active suppliers","proveedores con saldo, de los activos"
+"suppliers on hold, of active suppliers","proveedores en espera, de los activos"
+"opening entries, of submitted entries","asientos de apertura, de los validados"
+Stock value,Valor de stock
+of invoices,de las facturas
+of bills,de las facturas de compra
+of outstanding,del pendiente
+of all items,de todos los artículos
+of active items,de los activos
+of stock items,de los de stock
+of active customers,de los clientes activos
+of active suppliers,de los proveedores activos
+of submitted entries,de los asientos validados

@@ -1,0 +1,15 @@
+# Alternative to Caddy: Cloudflare *named* tunnel on your own domain (no open ports, works behind NAT / on a Windows RDP box).
+# Create the tunnel in Cloudflare Zero Trust -> Networks -> Tunnels, copy its token into .env as CLOUDFLARE_TUNNEL_TOKEN,
+# and add two Public Hostnames in that tunnel: ERP_DOMAIN -> http://frontend:8080 and FNB_DOMAIN -> http://frontend:8080.
+#   docker compose -f compose.yaml -f compose.tunnel.yaml up -d
+services:
+  frontend:
+    ports: !reset []
+  cloudflared:
+    image: cloudflare/cloudflared:2024.10.0
+    restart: unless-stopped
+    networks: [kodeerp]
+    command: ["tunnel", "--no-autoupdate", "run"]
+    environment:
+      TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN:?set CLOUDFLARE_TUNNEL_TOKEN in .env}
+    depends_on: [frontend]

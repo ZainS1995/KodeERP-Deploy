@@ -1,0 +1,24 @@
+# KodeERP production image: upstream Frappe/ERPNext image + HRMS + the KodeERP theme (kodenova_theme).
+# Pinned to the exact versions of the demo: frappe 16.52.0, erpnext 16.51.1, hrms 16.51.0.
+#   docker build -t kodeerp:16.51.1-kn1 -f Containerfile .
+FROM frappe/erpnext:v16.51.1
+
+ARG HRMS_REF=v16.51.0
+USER frappe
+WORKDIR /home/frappe/frappe-bench
+
+# HRMS (public, pinned tag)
+RUN git clone --depth 1 --branch "${HRMS_REF}" https://github.com/frappe/hrms apps/hrms && rm -rf apps/hrms/.git
+
+# KodeERP theme (copied from ./apps/kodenova_theme - extracted from the git bundle in this package)
+COPY --chown=frappe:0 apps/kodenova_theme apps/kodenova_theme
+
+# Python install, app list, and asset build into the image's baked asset folder
+# (the upstream entrypoint links /home/frappe/frappe-bench/assets into the sites volume at start).
+RUN ./env/bin/pip install --no-cache-dir -e apps/hrms -e apps/kodenova_theme \
+ && printf "frappe\nerpnext\nhrms\nkodenova_theme\n" > sites/apps.txt \
+ && rm -rf sites/assets && ln -s /home/frappe/frappe-bench/assets sites/assets \
+ && (cd apps/hrms && yarn install --frozen-lockfile --network-timeout 600000 || yarn install --network-timeout 600000) \
+ && bench build --apps hrms,kodenova_theme \
+ && rm -f sites/assets \
+ && chmod -R g=u apps/hrms apps/kodenova_theme /home/frappe/frappe-bench/assets

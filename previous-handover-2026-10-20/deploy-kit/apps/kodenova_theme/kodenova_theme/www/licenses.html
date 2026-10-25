@@ -1,0 +1,17 @@
+{% extends "templates/web.html" %}
+{% block title %}{{ _("Open-source licenses") }}{% endblock %}
+{% block page_content %}
+<div class="kn-licenses">
+<h1>{{ _("Open-source licenses") }}</h1>
+<p>{{ _("KodeERP is built on the open-source software listed below. It is not affiliated with or endorsed by the authors of these projects. Their copyright and license notices are reproduced here and in the LICENSE files shipped with the source code.") }}</p>
+{% for c in components %}
+<section class="kn-license-item">
+  <h2>{{ c.name }} <span class="kn-license-tag">{{ c.license }}</span></h2>
+  <p class="kn-license-copy">{{ c.copyright }}</p>
+  <p>{{ _(c.note) }}</p>
+  <p><a href="{{ c.source }}" rel="noopener" target="_blank">{{ _("Source code") }}</a> &middot;
+     <a href="{{ c.license_url }}" rel="noopener" target="_blank">{{ _("License text") }}</a></p>
+</section>
+{% endfor %}
+</div>
+{% endblock %}

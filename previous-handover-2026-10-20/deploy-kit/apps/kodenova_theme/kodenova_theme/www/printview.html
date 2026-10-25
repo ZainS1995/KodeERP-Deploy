@@ -1,0 +1,64 @@
+{#- KodeERP override of frappe/www/printview.html (app load order; upstream untouched): generator meta, favicon, brand fonts. -#}
+{%- if standalone -%}
+{{ body }}
+{%- else -%}
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ layout_direction }}">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{{ title }}</title>
+	<meta name="generator" content="KodeERP">
+	<link rel="icon" href="/assets/kodenova_theme/images/kodeerp-favicon-32.png" type="image/png">
+	<link rel="stylesheet" href="/assets/kodenova_theme/css/kodenova_fonts.css">
+	{{ include_style('print.bundle.css') }}
+	{{ include_script('print.bundle.js') }}
+	{% if print_style %}
+		<style>
+		{{ print_style }}
+		</style>
+	{% endif %}
+	<style>body, .print-format, .action-banner { font-family: "Urbanist Variable", Urbanist, "Noto Sans Arabic Variable", "Inter Variable", Inter, Arial, sans-serif !important; } .action-banner a { color: #2a5ff0; font-weight: 600; }</style>
+</head>
+<body>
+	{%- if not no_action_banner %}
+	<div class="action-banner print-hide">
+		<a class="p-2" onclick="window.print();">
+			{{ _("Print") }}
+		</a>
+		<a class="p-2"
+			href="/api/method/frappe.utils.print_format.download_pdf?doctype={{doctype|e}}&name={{name|e}}&format={{print_format|e}}{% if letterhead %}&letterhead={{letterhead|e}}{% endif %}{% if no_letterhead %}&no_letterhead={{no_letterhead|e}}{% endif %}{% if lang %}&_lang={{lang|e}}{% endif %}{% if key %}&key={{key|e}}{% endif %}{% if pdf_generator %}&pdf_generator={{pdf_generator|e}}{% endif %}">
+			{{ _('Get PDF') }}
+		</a>
+	</div>
+	{%- endif %}
+	<div class="print-format-gutter">
+		<div class="print-format">
+			{{ body }}
+		</div>
+	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+			const page_div = document.querySelector('.page-break');
+
+			if (page_div) {
+				page_div.style.display = 'flex';
+				page_div.style.flexDirection = 'column';
+			}
+
+			const footer_html = document.getElementById('footer-html');
+			if (footer_html)  {
+				footer_html.classList.add('hidden-pdf');
+				footer_html.classList.remove('visible-pdf');
+				footer_html.style.order = 1;
+				footer_html.style.marginTop = '20px';
+			}
+			document.querySelectorAll("svg[data-barcode-value]").forEach(render_barcode)
+		});
+	</script>
+</body>
+{%- if comment -%}
+<!-- {{ comment }} -->
+{%- endif -%}
+</html>
+{%- endif -%}

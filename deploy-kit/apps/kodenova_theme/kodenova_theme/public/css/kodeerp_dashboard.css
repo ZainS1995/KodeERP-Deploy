@@ -1,0 +1,347 @@
+/* =====================================================================================
+   KodeERP dashboards + list KPI cards (kodenova_theme v0.5)
+   Source of truth: docs/KODENOVA-DESIGN-SYSTEM.md. Owned by the dashboard worker.
+   Scopes:
+     body[data-route^="Workspaces/"]   every workspace (KodeERP Home, Accounting, Selling, ...)
+     .kd-*                             KodeERP Home custom blocks (this file is @imported into
+                                       their shadow roots) and the list KPI strip
+   Motion: entrances + hover only, nothing loops; all of it is off under prefers-reduced-motion.
+   ===================================================================================== */
+
+:root, :host {
+  --kd-bg: #f3f3f4; --kd-card: #fff; --kd-ink: #0e0e10; --kd-ink2: #3a3a40; --kd-mute: #6c6c74;
+  --kd-hl: #ffd23f; --kd-blue: #2f6bff; --kd-blue-hover: #1f58e6; --kd-blue-text: #2556d9;
+  --kd-line: #00000017; --kd-hair: #0000000d; --kd-soft: #f6f6f7; --kd-skel: #ececef;
+  --kd-ok: #18b26b; --kd-ok-text: #0f7a43; --kd-warn: #ff6a3d; --kd-warn-text: #c2410c; --kd-amber: #f5b800;
+  --kd-r-card: 24px; --kd-r-big: 28px; --kd-r-btn: 12px; --kd-pill: 99px;
+  --kd-shadow: 0 18px 40px #0000000d, 0 2px 6px #00000008;
+  --kd-shadow-hover: 0 28px 60px #00000014;
+  --kd-ease: cubic-bezier(.2,.7,.2,1); --kd-spring: cubic-bezier(.3,1.5,.5,1);
+  --kd-font: "Urbanist Variable", "Urbanist", "Noto Sans Arabic Variable", "Inter Variable", Inter, system-ui, sans-serif;
+  --kd-num: "Inter Variable", Inter, system-ui, sans-serif;
+  --kd-gap: 20px;
+  --kd-gutter: clamp(20px, 2vw, 28px);   /* outer gutter from the sidebar / screen edge */
+}
+@media (max-width: 767px) { :root { --kd-gutter: 14px; } }
+
+/* ---------------------------------------------------------------- 0. Page gutter (all desk pages)
+   Page title, KPI strip, list/report panel, workspace grid and forms share one left edge,
+   var(--kd-gutter) away from the sidebar. Gap between cards stays 18-22px. */
+.main-section .page-head > .container,
+.main-section .container.page-body,
+.main-section .page-toolbar > .container {
+  padding-inline: var(--kd-gutter) !important; max-width: none;
+}
+.main-section .container.page-body > .page-wrapper,
+.main-section .container.page-body .page-content,
+.main-section .page-head .page-head-content { padding-inline: 0 !important; margin-inline: 0; }
+.main-section .page-head .page-title { padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+.main-section .page-head .title-area, .main-section .page-head .title-text { padding-inline-start: 0 !important; margin-inline-start: 0 !important; }
+
+/* ---------------------------------------------------------------- 1. Workspace canvas */
+body[data-route^="Workspaces/"] .layout-main-section { background: transparent !important; box-shadow: none !important; }
+/* dashboards use the full 1200px container (stock workspaces cap at 900px) */
+body[data-route^="Workspaces/"] .layout-main { max-width: 1200px !important; }
+body[data-route^="Workspaces/"] .codex-editor__redactor {
+  display: flex; flex-wrap: wrap; margin: 0 calc(var(--kd-gap) / -2); padding-bottom: 40px !important;
+}
+body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block { padding: calc(var(--kd-gap) / 2); }
+body[data-route^="Workspaces/"] .ce-block__content { max-width: none; height: 100%; }
+body[data-route^="Workspaces/"] .ce-block__content > div { height: 100%; }
+
+/* section headers become eyebrow labels with the yellow dot */
+body[data-route^="Workspaces/"] .ce-header {
+  display: flex; align-items: center; gap: 10px; margin: 18px 0 0; padding: 0 4px;
+  font: 600 12.5px/1.2 var(--kd-font); letter-spacing: .07em; text-transform: uppercase; color: var(--kd-mute);
+}
+body[data-route^="Workspaces/"] .ce-header::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--kd-hl); flex: none;
+}
+body[data-route^="Workspaces/"] .ce-header .h4, body[data-route^="Workspaces/"] .ce-header b {
+  font: inherit; color: inherit; margin: 0;
+}
+
+/* every widget: white, borderless, soft shadow, 24px radius, hover lift */
+body[data-route^="Workspaces/"] .widget {
+  background: var(--kd-card) !important; border: 0 !important; border-radius: var(--kd-r-card) !important;
+  box-shadow: var(--kd-shadow) !important; height: 100%;
+  transition: transform .3s var(--kd-ease), box-shadow .3s var(--kd-ease) !important;
+}
+body[data-route^="Workspaces/"] .widget:hover { transform: translateY(-4px); box-shadow: var(--kd-shadow-hover) !important; }
+body[data-route^="Workspaces/"] .widget.custom-block-widget-box,
+body[data-route^="Workspaces/"] .widget.custom-block-widget-box:hover {
+  background: transparent !important; box-shadow: none !important; transform: none; padding: 0 !important;
+}
+body[data-route^="Workspaces/"] .custom-block-widget-box .widget-head,
+body[data-route^="Workspaces/"] .custom-block-widget-box .widget-footer { display: none; }
+body[data-route^="Workspaces/"] .widget .widget-head .widget-label .widget-title,
+body[data-route^="Workspaces/"] .widget .widget-title {
+  font: 700 17px/1.25 var(--kd-font); letter-spacing: -.01em; color: var(--kd-ink);
+}
+
+/* ---------------------------------------------------------------- 2. Number cards (KPI) */
+body[data-route^="Workspaces/"] .number-widget-box { padding: 22px 24px 20px !important; min-height: 132px; }
+body[data-route^="Workspaces/"] .number-widget-box::before { display: none !important; }
+body[data-route^="Workspaces/"] .number-widget-box .widget-head { padding: 0; margin-bottom: 14px; }
+body[data-route^="Workspaces/"] .number-widget-box .widget-title .ellipsis { white-space: normal; overflow: visible; }
+body[data-route^="Workspaces/"] .number-widget-box .widget-title {
+  display: inline-flex; align-items: center; gap: 8px;
+  font: 600 12.5px/1.2 var(--kd-font) !important; letter-spacing: .06em !important; text-transform: uppercase;
+  color: var(--kd-mute) !important;
+}
+body[data-route^="Workspaces/"] .number-widget-box .widget-title::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--kd-accent, var(--kd-hl)); flex: none;
+}
+body[data-route^="Workspaces/"] .number-widget-box .widget-body { padding: 0; }
+body[data-route^="Workspaces/"] .number-widget-box .widget-content .number {
+  font: 700 clamp(24px, 2.1vw, 32px)/1.1 var(--kd-num) !important; letter-spacing: -.025em; white-space: nowrap;
+  color: var(--kd-ink) !important; font-variant-numeric: tabular-nums;
+}
+body[data-route^="Workspaces/"] .number-widget-box .card-stats { font: 500 13px var(--kd-font); margin-top: 8px; }
+body[data-route^="Workspaces/"] .number-widget-box .card-stats.green-stat { color: var(--kd-ok-text); }
+body[data-route^="Workspaces/"] .number-widget-box .card-stats.red-stat { color: var(--kd-warn-text); }
+/* status accents: ok = green, needs attention = orange, neutral = yellow (default) */
+.number-widget-box:is([data-widget-name="Revenue This Month"], [data-widget-name="Cash Received This Month"],
+  [data-widget-name="Deliveries This Month"]) { --kd-accent: var(--kd-ok); }
+.number-widget-box:is([data-widget-name="Outstanding Receivables"], [data-widget-name="Payables Due"],
+  [data-widget-name="Overdue Invoices"], [data-widget-name="Overdue Bills"]) { --kd-accent: var(--kd-warn); }
+.number-widget-box:is([data-widget-name="Stock Value"], [data-widget-name="Active Stock Items"],
+  [data-widget-name="Stock Entries This Month"], [data-widget-name="Purchases This Month"]) { --kd-accent: var(--kd-ink); }
+/* overdue counts read as a warning, not a win */
+.number-widget-box:is([data-widget-name="Overdue Invoices"], [data-widget-name="Overdue Bills"]) .widget-content .number {
+  color: var(--kd-warn-text) !important;
+}
+
+/* ---------------------------------------------------------------- 3. Charts */
+body[data-route^="Workspaces/"] .dashboard-widget-box { padding: 22px 22px 12px !important; }
+body[data-route^="Workspaces/"] .dashboard-widget-box .widget-head { padding: 0 2px 6px; }
+body[data-route^="Workspaces/"] .dashboard-widget-box .widget-control .btn,
+body[data-route^="Workspaces/"] .dashboard-widget-box .widget-control .dropdown-toggle {
+  border-radius: var(--kd-pill) !important; background: #fff; box-shadow: inset 0 0 0 1px #0000001a;
+}
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .x.axis text,
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .y.axis text { fill: var(--kd-mute); font-family: var(--kd-font); }
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .line-horizontal,
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .line-vertical { stroke: var(--kd-hair); }
+/* growth-chart style: rounded bars, 4px amber line with round caps (Sales Trend) */
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .bar-chart rect,
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .dataset-units rect { rx: 6px; ry: 6px; }
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .line-graph-path,
+body[data-route^="Workspaces/"] .dashboard-widget-box .frappe-chart .line-chart path.line-graph-path {
+  stroke-width: 4px !important; stroke-linecap: round; stroke-linejoin: round;
+}
+/* legend becomes chips */
+body[data-route^="Workspaces/"] .dashboard-widget-box .chart-legend, body[data-route^="Workspaces/"] .dashboard-widget-box .legend-dataset-text {
+  font: 500 13px var(--kd-font); color: var(--kd-ink2);
+}
+body[data-route^="Workspaces/"] .chart-empty-state, body[data-route^="Workspaces/"] .chart-loading-state {
+  font: 500 14.5px/1.55 var(--kd-font); color: var(--kd-mute);
+}
+body[data-route^="Workspaces/"] .dashboard-widget-box .chart-loading-state {
+  border-radius: 16px; min-height: 200px;
+  background: linear-gradient(90deg, var(--kd-soft) 0%, var(--kd-skel) 40%, var(--kd-soft) 80%) 0 0 / 300% 100%;
+  animation: kd-shimmer 1.2s linear infinite; color: transparent;
+}
+
+/* ---------------------------------------------------------------- 4. Quick lists (dense table rules) */
+body[data-route^="Workspaces/"] .quick-list-widget-box { padding: 20px 14px 10px !important; }
+body[data-route^="Workspaces/"] .quick-list-widget-box .widget-head { padding: 0 10px 8px; }
+body[data-route^="Workspaces/"] .quick-list-widget-box .quick-list-item {
+  border-radius: 12px; padding: 10px 10px !important; margin: 0; border-bottom: 1px solid var(--kd-line);
+  font: 500 14px/1.4 var(--kd-font); color: var(--kd-ink); transition: background-color .15s;
+}
+body[data-route^="Workspaces/"] .quick-list-widget-box .quick-list-item:last-child { border-bottom: 0; }
+body[data-route^="Workspaces/"] .quick-list-widget-box .quick-list-item:hover { background: var(--kd-soft); }
+body[data-route^="Workspaces/"] .quick-list-widget-box .quick-list-item .timestamp,
+body[data-route^="Workspaces/"] .quick-list-widget-box .quick-list-item .text-muted { color: var(--kd-mute); font-size: 12.5px; }
+body[data-route^="Workspaces/"] .quick-list-widget-box .indicator-pill { border-radius: var(--kd-pill); font: 600 12px var(--kd-font); }
+body[data-route^="Workspaces/"] .quick-list-widget-box .see-all {
+  border-radius: var(--kd-pill) !important; font: 600 13px var(--kd-font); color: var(--kd-ink) !important;
+  background: var(--kd-soft) !important; box-shadow: none !important; padding: 6px 14px !important;
+}
+
+/* ---------------------------------------------------------------- 5. Link cards (Reports & tools) */
+body[data-route^="Workspaces/"] .links-widget-box { padding: 22px 24px !important; }
+body[data-route^="Workspaces/"] .links-widget-box .link-item { border-radius: 10px; padding: 6px 8px; font: 500 14.5px var(--kd-font); }
+body[data-route^="Workspaces/"] .links-widget-box .link-item:hover { background: var(--kd-soft); }
+/* onboarding / tutorial blocks are never shown on branded workspaces */
+body[data-route^="Workspaces/"] .onboarding-widget-box { display: none !important; }
+body[data-route^="Workspaces/"] .ce-block:has(> .ce-block__content > div > .onboarding-widget-box) { display: none !important; }
+
+/* ---------------------------------------------------------------- 6. Responsive grid 4/3 -> 2 -> 1 */
+@media (max-width: 1000px) {
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block.col-md-3,
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block.col-md-4,
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block.col-sm-6 { flex: 0 0 50%; max-width: 50%; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:has(.dashboard-widget-box),
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:has(.quick-list-widget-box) { flex: 0 0 100%; max-width: 100%; }
+}
+@media (max-width: 560px) {
+  :root { --kd-gap: 14px; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block { flex: 0 0 100% !important; max-width: 100% !important; }
+  body[data-route^="Workspaces/"] .number-widget-box { min-height: 0; padding: 18px 20px 16px !important; }
+}
+
+/* =====================================================================================
+   7. KodeERP Home custom blocks (rendered inside shadow roots; this file is @imported there)
+   ===================================================================================== */
+.kd-hero, .kd-qa { font-family: var(--kd-font); color: var(--kd-ink); -webkit-font-smoothing: antialiased; }
+.kd-hero { padding: 18px 6px 8px; }
+.kd-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; font: 600 12.5px/1.2 var(--kd-font);
+  letter-spacing: .07em; text-transform: uppercase; color: var(--kd-mute);
+}
+.kd-eyebrow::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--kd-hl); }
+.kd-h1 {
+  margin: 14px 0 10px; font: 700 clamp(32px, 3.4vw, 48px)/1.05 var(--kd-font); letter-spacing: -.03em; color: var(--kd-ink);
+}
+.hl { background: var(--kd-hl); padding: 0 .12em; border-radius: .12em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.kd-sub { margin: 0 0 16px; max-width: 560px; font: 400 16px/1.55 var(--kd-font); color: var(--kd-ink2); }
+.kd-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.kd-chip {
+  display: inline-flex; align-items: center; gap: 7px; height: 32px; padding: 0 14px; border-radius: var(--kd-pill);
+  background: #fff; box-shadow: inset 0 0 0 1px #0000001a; font: 500 13px var(--kd-font); color: var(--kd-ink2);
+}
+.kd-chip svg, .kd-check svg { width: 17px; height: 17px; flex: none; }
+.kd-chip svg circle, .kd-check svg circle { fill: var(--kd-ok); stroke: none; }
+.kd-chip svg path, .kd-check svg path { fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* quick actions = plan/feature cards */
+.kd-qa { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--kd-gap); padding-top: 34px; }
+.kd-plan {
+  position: relative; display: flex; flex-direction: column; gap: 6px; cursor: pointer;
+  background: #fff; border-radius: var(--kd-r-card); box-shadow: var(--kd-shadow); padding: 46px 24px 22px;
+  transition: transform .3s var(--kd-ease), box-shadow .3s var(--kd-ease);
+}
+.kd-plan:hover { transform: translateY(-6px); box-shadow: var(--kd-shadow-hover); }
+.kd-badge {
+  position: absolute; top: -28px; left: 24px; width: 56px; height: 56px; border-radius: 50%;
+  display: grid; place-items: center; background: #fff; box-shadow: var(--kd-shadow), 0 0 0 6px var(--kd-bg);
+  transition: transform .3s var(--kd-spring);
+}
+.kd-plan:hover .kd-badge { transform: scale(1.08) rotate(-4deg); }
+.kd-badge svg { width: 26px; height: 26px; fill: none; stroke: var(--kd-ink); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.kd-plan:first-child .kd-badge { background: var(--kd-hl); }
+.kd-tag {
+  align-self: flex-start; padding: 4px 10px; border-radius: var(--kd-pill); background: var(--kd-bg);
+  font: 600 11.5px var(--kd-font); letter-spacing: .06em; text-transform: uppercase; color: var(--kd-mute);
+}
+.kd-plan h3 { margin: 6px 0 0; font: 700 19px/1.25 var(--kd-font); letter-spacing: -.01em; color: var(--kd-ink); }
+.kd-plan:hover h3 { color: var(--kd-warn-text); }
+.kd-plan p { margin: 0; font: 400 14.5px/1.55 var(--kd-font); color: var(--kd-mute); }
+.kd-check { list-style: none; margin: 8px 0 14px; padding: 0; display: grid; gap: 7px; }
+.kd-check li { display: flex; align-items: center; gap: 8px; font: 500 13.5px var(--kd-font); color: var(--kd-ink2); }
+.kd-btn {
+  margin-top: auto; display: inline-flex; align-items: center; justify-content: space-between; gap: 10px;
+  height: 44px; padding: 0 8px 0 18px; border-radius: var(--kd-r-btn); border: 0; cursor: pointer;
+  font: 600 15px var(--kd-font); transition: transform .2s var(--kd-ease), background-color .2s, box-shadow .2s;
+}
+.kd-btn-primary { background: var(--kd-blue); color: #fff; box-shadow: 0 10px 24px #2f6bff40; }
+.kd-btn-primary:hover { background: var(--kd-blue-hover); transform: translateY(-2px); box-shadow: 0 14px 30px #2f6bff52; }
+.kd-btn-ghost { background: #fff; color: var(--kd-ink); box-shadow: inset 0 0 0 1px #0000001a; }
+.kd-btn-ghost:hover { transform: translateY(-1px); background: var(--kd-soft); }
+.kd-arrow {
+  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+  box-shadow: inset 0 0 0 1.5px currentColor; font-size: 14px; transition: transform .25s var(--kd-ease);
+}
+.kd-plan:hover .kd-arrow { transform: translateX(4px); }
+.kd-btn:focus-visible, .kd-plan:focus-visible, .kd-card:focus-visible { outline: 3px solid var(--kd-blue); outline-offset: 3px; }
+@media (max-width: 1000px) { .kd-qa { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 44px; } }
+@media (max-width: 560px) {
+  .kd-qa { grid-template-columns: 1fr; row-gap: 40px; }
+  .kd-hero { padding-top: 8px; }
+  .kd-check { display: none; }
+}
+
+/* =====================================================================================
+   8. List KPI strip (kodeerp_list_cards.js) — sits above the list, 4/2/1 grid
+   ===================================================================================== */
+.kd-list-cards {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; margin: 8px 0 20px;
+  font-family: var(--kd-font);
+}
+.kd-list-cards[hidden] { display: none; }
+.kd-card {
+  position: relative; display: flex; flex-direction: column; gap: 10px; text-align: start;
+  background: #fff; border: 0; border-radius: 22px; box-shadow: var(--kd-shadow); padding: 18px 20px 16px;
+  cursor: pointer; color: var(--kd-ink); font: inherit; min-height: 112px;
+  transition: transform .3s var(--kd-ease), box-shadow .3s var(--kd-ease);
+}
+.kd-card:hover { transform: translateY(-4px); box-shadow: var(--kd-shadow-hover); }
+.kd-card.is-active { box-shadow: var(--kd-shadow), inset 0 0 0 2px var(--kd-ink); }
+.kd-card-label {
+  display: inline-flex; align-items: center; gap: 8px; font: 600 12px/1.2 var(--kd-font);
+  letter-spacing: .06em; text-transform: uppercase; color: var(--kd-mute);
+}
+.kd-card-label::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--kd-accent, var(--kd-hl)); flex: none; }
+.kd-card[data-tone="ok"] { --kd-accent: var(--kd-ok); }
+.kd-card[data-tone="warn"] { --kd-accent: var(--kd-warn); }
+.kd-card[data-tone="ink"] { --kd-accent: var(--kd-ink); }
+.kd-card-value {
+  font: 700 clamp(22px, 1.9vw, 28px)/1.1 var(--kd-num); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  color: var(--kd-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.kd-card[data-tone="warn"] .kd-card-value.is-nonzero { color: var(--kd-warn-text); }
+.kd-card-sub { font: 500 13px/1.3 var(--kd-font); color: var(--kd-mute); }
+.kd-card-sub.ok { color: var(--kd-ok-text); }
+.kd-card-sub.warn { color: var(--kd-warn-text); }
+.kd-card-empty { color: var(--kd-mute); font-weight: 600; }
+/* skeleton shimmer while loading (finite: removed as soon as data lands) */
+.kd-card.is-loading { cursor: default; pointer-events: none; }
+.kd-card.is-loading .kd-card-value, .kd-card.is-loading .kd-card-sub {
+  color: transparent; border-radius: 8px;
+  background: linear-gradient(90deg, var(--kd-soft) 0%, var(--kd-skel) 40%, var(--kd-soft) 80%) 0 0 / 300% 100%;
+  animation: kd-shimmer 1.2s linear infinite;
+}
+.kd-card.is-loading .kd-card-value { width: 62%; height: 28px; }
+.kd-card.is-loading .kd-card-sub { width: 44%; height: 13px; }
+@media (max-width: 1000px) { .kd-list-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; } }
+@media (max-width: 520px) {
+  .kd-list-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 4px 0 12px; }
+  .kd-card { padding: 14px 14px 12px; min-height: 92px; border-radius: 18px; gap: 8px; }
+  .kd-card-label { font-size: 10.5px; letter-spacing: .04em; }
+  .kd-card-value { font-size: 19px; }
+  .kd-card-sub { font-size: 12px; }
+}
+
+/* =====================================================================================
+   9. Entrances (grid children: translateY(30px) scale(.97) -> none, .8s, 70ms stagger, cap 8)
+   ===================================================================================== */
+@keyframes kd-grid-in { from { opacity: 0; transform: translateY(30px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes kd-shimmer { from { background-position: 100% 0; } to { background-position: -50% 0; } }
+@media (prefers-reduced-motion: no-preference) {
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block,
+  .kd-qa > .kd-plan, .kd-list-cards > .kd-card, .kd-hero > * {
+    animation: kd-grid-in .8s var(--kd-ease) both;
+  }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(2), .kd-qa > :nth-child(2), .kd-list-cards > :nth-child(2), .kd-hero > :nth-child(2) { animation-delay: 70ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(3), .kd-qa > :nth-child(3), .kd-list-cards > :nth-child(3), .kd-hero > :nth-child(3) { animation-delay: 140ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(4), .kd-qa > :nth-child(4), .kd-list-cards > :nth-child(4), .kd-hero > :nth-child(4) { animation-delay: 210ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(5) { animation-delay: 280ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(6) { animation-delay: 350ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(7) { animation-delay: 420ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(8) { animation-delay: 490ms; }
+  body[data-route^="Workspaces/"] .codex-editor__redactor > .ce-block:nth-child(n+9) { animation-duration: .55s; animation-delay: 550ms; }
+  /* the hero highlight wipes in once */
+  .kd-h1 .hl { background: linear-gradient(var(--kd-hl), var(--kd-hl)) no-repeat 0 0 / 0 100%; animation: kd-hl .9s var(--kd-ease) .55s both; }
+  @keyframes kd-hl { to { background-size: 100% 100%; } }
+  /* never animate while a workspace is being edited */
+  body[data-route^="Workspaces/"] .workspace-container.edit-mode .ce-block,
+  body[data-route^="Workspaces/"] .codex-editor--editing .ce-block { animation: none; }
+}
+
+/* ---------------------------------------------------------------- 10. Reduced motion: everything static */
+@media (prefers-reduced-motion: reduce) {
+  body[data-route^="Workspaces/"] .ce-block, body[data-route^="Workspaces/"] .widget,
+  .kd-hero *, .kd-qa *, .kd-qa, .kd-list-cards, .kd-list-cards *, .kd-card {
+    animation: none !important; transition: none !important;
+  }
+  body[data-route^="Workspaces/"] .widget:hover, .kd-plan:hover, .kd-card:hover,
+  .kd-plan:hover .kd-badge, .kd-plan:hover .kd-arrow, .kd-btn:hover { transform: none !important; }
+  .kd-h1 .hl { background-size: 100% 100% !important; }
+}
+
+/* ---------------------------------------------------------------- 11. RTL */
+html[dir="rtl"] .kd-badge { left: auto; right: 24px; }
+html[dir="rtl"] .kd-arrow { transform: scaleX(-1); }
+html[dir="rtl"] .kd-plan:hover .kd-arrow { transform: scaleX(-1) translateX(4px); }

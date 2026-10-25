@@ -1,0 +1,41 @@
+{
+ "results": {
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "Payroll Entry get employees",
+    "PASS",
+    ""
+   ],
+   [
+    "Payroll Entry save",
+    "PASS",
+    ""
+   ],
+   [
+    "Payroll Entry employees found",
+    "PASS",
+    "['HR-EMP-00005']"
+   ],
+   [
+    "Payroll Entry submit (creates salary slips)",
+    "PASS",
+    ""
+   ],
+   [
+    "Submit salary slips (accrual journal)",
+    "PASS",
+    ""
+   ],
+   [
+    "salary slips from payroll run",
+    "PASS",
+    "[{'name': 'Sal Slip/HR-EMP-00005/00001', 'docstatus': 1, 'gross_pay': 8000.0}]"
+   ],
+   [
+    "accrual journal entry posted",
+    "FAIL",
+    "[]"
+   ]
+  ]
+ }
+}

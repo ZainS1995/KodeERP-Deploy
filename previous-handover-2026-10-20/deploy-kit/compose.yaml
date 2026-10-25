@@ -1,0 +1,121 @@
+# KodeERP self-hosting stack (frappe_docker style). Usage:
+#   cp example.env .env && edit .env
+#   docker compose build            # builds the kodeerp image from ./Containerfile
+#   docker compose up -d
+# HTTPS with Let's Encrypt: docker compose -f compose.yaml -f compose.https.yaml up -d
+name: kodeerp
+
+x-app: &app
+  image: ${KODEERP_IMAGE:-kodeerp:16.51.1-kn1}
+  restart: unless-stopped
+  networks: [kodeerp]
+  volumes:
+    - sites:/home/frappe/frappe-bench/sites
+    - logs:/home/frappe/frappe-bench/logs
+  environment: &appenv
+    FRAPPE_REDIS_CACHE: redis://redis-cache:6379
+    FRAPPE_REDIS_QUEUE: redis://redis-queue:6379
+
+services:
+  configurator:
+    <<: *app
+    build: { context: ., dockerfile: Containerfile }
+    restart: "no"
+    entrypoint: ["bash", "-c"]
+    command:
+      - >
+        printf "frappe\nerpnext\nhrms\nkodenova_theme\n" > sites/apps.txt;
+        bench set-config -g db_host db;
+        bench set-config -gp db_port 3306;
+        bench set-config -g redis_cache "redis://redis-cache:6379";
+        bench set-config -g redis_queue "redis://redis-queue:6379";
+        bench set-config -g redis_socketio "redis://redis-queue:6379";
+        bench set-config -gp socketio_port 9000;
+    depends_on:
+      db: { condition: service_healthy }
+
+  backend:
+    <<: *app
+    depends_on:
+      configurator: { condition: service_completed_successfully }
+
+  frontend:
+    <<: *app
+    command: ["nginx-entrypoint.sh"]
+    environment:
+      BACKEND: backend:8000
+      SOCKETIO: websocket:9000
+      FRAPPE_SITE_NAME_HEADER: ${FRAPPE_SITE_NAME_HEADER:-$$host}
+      UPSTREAM_REAL_IP_ADDRESS: 127.0.0.1
+      UPSTREAM_REAL_IP_HEADER: X-Forwarded-For
+      UPSTREAM_REAL_IP_RECURSIVE: "off"
+      PROXY_READ_TIMEOUT: 120
+      CLIENT_MAX_BODY_SIZE: 50m
+    ports:
+      - "${HTTP_PUBLISH_PORT:-8080}:8080"
+    depends_on: [backend, websocket]
+
+  websocket:
+    <<: *app
+    command: ["node", "/home/frappe/frappe-bench/apps/frappe/socketio.js"]
+    depends_on:
+      configurator: { condition: service_completed_successfully }
+
+  queue-short:
+    <<: *app
+    command: ["bench", "worker", "--queue", "short,default"]
+    depends_on:
+      configurator: { condition: service_completed_successfully }
+
+  queue-long:
+    <<: *app
+    command: ["bench", "worker", "--queue", "long,default,short"]
+    depends_on:
+      configurator: { condition: service_completed_successfully }
+
+  scheduler:
+    <<: *app
+    command: ["bench", "schedule"]
+    depends_on:
+      configurator: { condition: service_completed_successfully }
+
+  db:
+    image: mariadb:11.8
+    restart: unless-stopped
+    networks: [kodeerp]
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 10s
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set DB_ROOT_PASSWORD in .env}
+    volumes:
+      - db-data:/var/lib/mysql
+
+  redis-cache:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks: [kodeerp]
+
+  redis-queue:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks: [kodeerp]
+    volumes:
+      - redis-queue-data:/data
+
+volumes:
+  db-data:
+  redis-queue-data:
+  sites:
+  logs:
+
+networks:
+  kodeerp:

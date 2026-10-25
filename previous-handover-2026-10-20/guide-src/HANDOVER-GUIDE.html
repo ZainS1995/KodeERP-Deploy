@@ -1,0 +1,185 @@
+<!doctype html><html lang='en'><head><meta charset='utf-8'><title>KodeERP — Self-Hosting Handover Guide</title><style>@font-face{font-family:Urbanist;src:url('file:///workspace/kodeerp/development/frappe-bench/apps/kodenova_theme/kodenova_theme/public/fonts/urbanist-latin-wght-normal.woff2') format('woff2');font-weight:100 900}
+@page{size:A4;margin:12mm;background:#f3f3f4} html{background:#f3f3f4}
+body{font-family:Urbanist,sans-serif;color:#0e0e10;font-size:9.4pt;line-height:1.5;font-weight:500;margin:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.hero,.card{background:#fff;padding:11px 18px;margin:0 0 9px;box-shadow:0 10px 26px #0000000d;border:1px solid #0000000f} .hero img{height:38px}
+h1{font-size:19pt;letter-spacing:-.02em;margin:8px 0 0} .hl{background:#ffd23f;padding:0 .12em} .intro{background:#fff8d9}
+h2{font-size:12pt;margin:0 0 6px;break-after:avoid} h2:before{content:'';display:inline-block;width:9px;height:9px;background:#ffd23f;margin-inline-end:8px} h3{font-size:10.5pt;margin:8px 0 3px}
+table{border-collapse:collapse;width:100%;margin:4px 0} td,th{text-align:start;padding:3px 6px;border-bottom:1px solid #ececf0;vertical-align:top} th{font-size:8.5pt;color:#6c6c74;text-transform:uppercase}
+code{font-family:ui-monospace,monospace;font-size:8.3pt;background:#f3f3f4;padding:0 3px;word-break:break-all} ol,ul{margin:3px 0;padding-inline-start:20px} li{margin:3px 0} li::marker{color:#2f6bff;font-weight:700} strong{color:#0e0e10}
+.foot{text-align:center;color:#6c6c74;font-size:8pt}</style></head><body><div class='hero'><img src='file:///workspace/kodeerp/brand/kodenova-logo/derived/kodeerp-lockup-tag.png'><h1><span class=hl>KodeERP</span> — Self-Hosting Handover Guide</h1></div><div class="card intro"><p><strong>Prepared 20 Oct 2026 for Zain (Kodenova).</strong> This guide explains how to run KodeERP (ERPNext v16 + the KodeERP theme) on your own server with your own domain, and how to restore the two demo sites. <strong>We have not deployed anything anywhere and have not changed any DNS.</strong> All steps below are for you (or your admin) to run.</p>
+</div><div class="card"><h2>0. What is in the package</h2>
+<ul>
+<li><code>app/</code> — the KodeERP theme app <code>kodenova_theme</code> as a git bundle (full history) and a clean <code>.tar.gz</code>.</li>
+<li><code>backups/fnb.localhost/</code> and <code>backups/kodeerp.localhost/</code> — fresh backups (database + public files + private files) taken 20 Oct 2026. <strong>Synthetic demo data only.</strong></li>
+<li><code>deploy-kit/</code> — <code>Containerfile</code>, <code>compose.yaml</code>, <code>compose.https.yaml</code>, <code>example.env</code>, <code>restore-site.sh</code>.</li>
+<li><code>VERSIONS.md</code> (exact versions), <code>SHA256SUMS</code> (checksums). Check them after copying: <code>sha256sum -c SHA256SUMS</code>.</li>
+<li>Versions: Frappe 16.52.0, ERPNext 16.51.1, Frappe HR 16.51.0, kodenova_theme 0.0.1 (commit 665ec44). The image is built on the official <code>frappe/erpnext:v16.51.1</code> image, which contains exactly Frappe 16.52.0 + ERPNext 16.51.1.</li>
+<li>We tested the kit end to end on our build machine: the image builds, the stack starts, the F&amp;B backup restores with <code>restore-site.sh</code>, the KodeERP theme loads (assets <code>?v=6</code>), the demo login works, and the list cards API returns the same figures as the demo.</li>
+</ul>
+</div><div class="card"><h2>1. Decide first</h2>
+<ol>
+<li><strong>Linux or Windows.</strong> Option A (Ubuntu Server, recommended) is simpler, faster and the standard way to run Frappe. Option B (Windows Server + WSL2 + Docker) works but adds a layer: port forwarding, start-on-boot and updates for WSL.</li>
+<li><strong>Demo data or clean start.</strong> The backups are for demos and evaluation. For a real company, create a <strong>new, empty site</strong> (section 5.3) and enter real master data there. Don't run real business on the demo databases.</li>
+<li><strong>Domain names</strong>, e.g. <code>erp.yourdomain.com</code> (main) and <code>fnb-demo.yourdomain.com</code> (F&amp;B demo). Each site is served on its own host name.</li>
+<li><strong>Who has admin access</strong> and where off-server backups go (S3, Backblaze, another server).</li>
+</ol>
+</div><div class="card"><h2>2. Recommended server</h2>
+<table>
+<thead>
+<tr>
+<th>Use</th>
+<th>vCPU</th>
+<th>RAM</th>
+<th>Disk</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demo / up to ~10 users</td>
+<td>2–4</td>
+<td>8 GB</td>
+<td>80 GB SSD</td>
+<td>4 GB RAM is the bare minimum</td>
+</tr>
+<tr>
+<td>Small company, 10–30 users</td>
+<td>4</td>
+<td>16 GB</td>
+<td>160 GB SSD</td>
+<td></td>
+</tr>
+<tr>
+<td>30+ users or heavy POS</td>
+<td>8</td>
+<td>32 GB</td>
+<td>250 GB+ SSD/NVMe</td>
+<td>consider a separate DB server</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Open ports to the internet: <strong>80 and 443 only</strong>. Keep SSH (22) / RDP (3389) limited to your IP addresses or a VPN.</li>
+<li>A static public IP and a domain where you can edit DNS.</li>
+</ul>
+</div><div class="card"><h2>3. Option A — Ubuntu 22.04 / 24.04 LTS (recommended)</h2>
+<ol>
+<li>Update and add a sudo user: <code>sudo apt update &amp;&amp; sudo apt -y upgrade</code>.</li>
+<li>Install Docker Engine + Compose plugin (official docs: docs.docker.com/engine/install/ubuntu): <code>curl -fsSL https://get.docker.com | sh</code>, then <code>sudo usermod -aG docker $USER</code>, then log out and back in.</li>
+<li>Copy the package to the server (e.g. <code>scp -r handover/ user@server:~/</code>) and check it: <code>cd ~/handover &amp;&amp; sha256sum -c SHA256SUMS</code>.</li>
+<li><code>cd deploy-kit &amp;&amp; cp example.env .env</code>. Edit <code>.env</code> and set a long random <code>DB_ROOT_PASSWORD</code> (<code>openssl rand -hex 24</code>), <code>SITE_DOMAIN</code> and <code>LETSENCRYPT_EMAIL</code>.</li>
+<li>Build the image (5–10 minutes): <code>docker compose build</code>.</li>
+<li>Start: <code>docker compose up -d</code>, then <code>docker compose ps</code> (everything <code>running</code>, <code>configurator</code> <code>exited (0)</code>).</li>
+<li>Firewall (UFW): <code>sudo ufw allow OpenSSH &amp;&amp; sudo ufw allow 80,443/tcp &amp;&amp; sudo ufw enable</code>. Docker-published ports bypass UFW, so only publish 80/443 (the HTTPS compose does exactly that). In <code>compose.yaml</code> the plain HTTP port 8080 is for testing only.</li>
+<li>Continue with section 5 (restore) and section 6 (domain and HTTPS).</li>
+</ol>
+</div><div class="card"><h2>4. Option B — Windows Server via RDP (WSL2 + Docker)</h2>
+<ol>
+<li>Use <strong>Windows Server 2022 (fully updated) or 2025</strong>. On the RDP session, open PowerShell as Administrator: <code>wsl --install -d Ubuntu-24.04</code>, then reboot. (If the server is itself a VM, nested virtualisation must be enabled by your host provider.)</li>
+<li>Inside Ubuntu (WSL), install Docker Engine exactly as in Option A step 2. Docker Desktop also works, but check its licence terms for business use.</li>
+<li>Enable systemd in WSL: put <code>[boot]</code> and <code>systemd=true</code> in <code>/etc/wsl.conf</code>, then run <code>wsl --shutdown</code> in PowerShell and reopen Ubuntu. Run <code>sudo systemctl enable docker</code>.</li>
+<li><strong>Networking.</strong> On Windows Server 2025 / Windows 11 22H2+, set mirrored mode in <code>C:\Users\&lt;you&gt;\.wslconfig</code>: <code>[wsl2]</code> and <code>networkingMode=mirrored</code>. On Server 2022, forward the ports from Windows to WSL (re-run after each reboot, because the WSL IP changes): <code>netsh interface portproxy add v4tov4 listenport=443 listenaddress=0.0.0.0 connectport=443 connectaddress=&lt;WSL IP&gt;</code>, and the same for 80. You get the WSL IP with <code>wsl hostname -I</code>.</li>
+<li><strong>Start on boot.</strong> Create a Task Scheduler task, trigger <em>At startup</em>, run as SYSTEM: <code>wsl.exe -d Ubuntu-24.04 -u root -- bash -lc "systemctl start docker; cd /home/&lt;user&gt;/handover/deploy-kit &amp;&amp; docker compose -f compose.yaml -f compose.https.yaml up -d"</code>.</li>
+<li><strong>Windows Defender Firewall:</strong> allow inbound TCP 80 and 443. Restrict RDP 3389 to your own IPs (Scope tab) or put RDP behind a VPN. Exposed RDP is the most common way these servers get compromised.</li>
+<li>Keep the package inside the WSL filesystem (<code>/home/...</code>), not under <code>/mnt/c</code>: it is much faster and avoids permission issues.</li>
+<li>Then follow Option A steps 3–6 inside Ubuntu, and sections 5–6.</li>
+</ol>
+</div><div class="card"><h2>5. Restore the demo sites (or create a clean one)</h2>
+<h3>5.1 Restore with the script (recommended)</h3>
+<p>From <code>deploy-kit/</code>, with the stack running, choose the final domain as the <strong>site name</strong>. Frappe has no site rename command, so naming the site after its domain from the start avoids renaming later:</p>
+<p><code>./restore-site.sh fnb-demo.yourdomain.com ../backups/fnb.localhost/*-database.sql.gz ../backups/fnb.localhost/*_localhost-files.tar ../backups/fnb.localhost/*-private-files.tar</code></p>
+<p>The script asks for a new Administrator password, then: creates the site (with a DB user that the containers can reach), restores the database and files, runs <code>migrate</code>, sets the admin password, runs <code>clear-cache</code> and <code>clear-website-cache</code>, enables the scheduler, and sets <code>host_name</code>. Repeat for <code>kodeerp.localhost</code> with your main domain.</p>
+<h3>5.2 Manual equivalent</h3>
+<ol>
+<li><code>docker compose cp &lt;db.sql.gz&gt; backend:/tmp/db.sql.gz</code> (also the two <code>.tar</code> files).</li>
+<li><code>docker compose exec backend bench new-site &lt;domain&gt; --db-root-password &lt;DB_ROOT_PASSWORD&gt; --admin-password &lt;pw&gt; --mariadb-user-host-login-scope=%</code></li>
+<li><code>docker compose exec backend bench --site &lt;domain&gt; restore /tmp/db.sql.gz --with-public-files /tmp/files.tar --with-private-files /tmp/private.tar --db-root-password &lt;DB_ROOT_PASSWORD&gt; --force</code></li>
+<li><code>bench --site &lt;domain&gt; migrate</code>, then <code>bench build</code> (only needed if you changed app code; assets are already in the image), then <code>bench --site &lt;domain&gt; clear-cache</code>, then <code>bench --site &lt;domain&gt; enable-scheduler</code>.</li>
+</ol>
+<h3>5.3 Clean production site (no demo data)</h3>
+<p><code>docker compose exec backend bench new-site erp.yourdomain.com --db-root-password &lt;DB_ROOT_PASSWORD&gt; --admin-password &lt;pw&gt; --mariadb-user-host-login-scope=% --install-app erpnext --install-app hrms --install-app kodenova_theme</code>. Then open the site and run the setup wizard.</p>
+<h3>5.4 Encryption key (important)</h3>
+<p>Frappe encrypts stored secrets (email passwords, API secrets) with the site's <code>encryption_key</code> in <code>site_config.json</code>. <strong>Today neither demo site has an encryption key and no encrypted secrets are stored</strong> (checked 20 Oct 2026), so there is nothing to carry over: the new site creates its own. If someone saves an email account or API secret on the old demo before the move, the key must be copied <strong>before first login</strong> on the new server: <code>bench --site &lt;domain&gt; set-config encryption_key '&lt;key&gt;'</code>. We keep the original site configs (with DB credentials) in a private folder on our side. They are not in this package and are not needed for restoring.</p>
+</div><div class="card"><h2>6. Domain and HTTPS</h2>
+<ol>
+<li>DNS: create an <strong>A record</strong> for each host name (e.g. <code>erp</code>, <code>fnb-demo</code>) pointing to the server's public IP (and AAAA for IPv6 if you use it). Wait until <code>nslookup erp.yourdomain.com</code> returns your IP.</li>
+<li>In <code>.env</code>, set <code>SITE_DOMAIN</code> (the host name that Traefik serves) and <code>LETSENCRYPT_EMAIL</code>.</li>
+<li>Start with HTTPS: <code>docker compose -f compose.yaml -f compose.https.yaml up -d</code>. Traefik gets a Let's Encrypt certificate automatically (port 80 must be reachable for the HTTP challenge) and redirects HTTP to HTTPS.</li>
+<li>For <strong>two or more domains</strong>, add each one to the router rule in <code>compose.https.yaml</code>, e.g. <code>Host(`erp.yourdomain.com`) || Host(`fnb-demo.yourdomain.com`)</code>. <code>FRAPPE_SITE_NAME_HEADER=$$host</code> routes each request to the site with the same name.</li>
+<li>If you restored under a different name (e.g. <code>fnb.localhost</code>), either restore again under the domain name (cleanest), or set <code>FRAPPE_SITE_NAME_HEADER=fnb.localhost</code> (single-site only).</li>
+<li>Set the public URL on each site: <code>bench --site &lt;domain&gt; set-config host_name https://&lt;domain&gt;</code> (used in emails and links).</li>
+<li>Alternative: an existing nginx with certbot in front, proxying to <code>127.0.0.1:8080</code>. Pass the <code>Host</code> header and the WebSocket upgrade headers (<code>proxy_set_header Upgrade $http_upgrade; proxy_set_header Connection "upgrade";</code>).</li>
+</ol>
+</div><div class="card"><h2>7. Users and passwords — do this right after restoring</h2>
+<ul>
+<li>Set a new Administrator password: <code>bench --site &lt;domain&gt; set-admin-password '&lt;new&gt;'</code>.</li>
+<li>Change or disable <strong>every demo user</strong>. F&amp;B demo: <code>najd.accounts.en@kodeerp.test</code>, <code>najd.accounts.ar@kodeerp.test</code>, <code>najd.olaya.manager@kodeerp.test</code>. Main demo: <code>demo@kodeerp.test</code> and the other <code>@kodeerp.test</code> users. Use <code>bench --site &lt;domain&gt; set-password &lt;user&gt; '&lt;new&gt;'</code>, or User list → Disabled.</li>
+<li>Create your own named System Manager user, and use the Administrator account only for emergencies.</li>
+<li>Settings → System Settings: set the session expiry, the password policy and the login attempt limits. Turn on two-factor authentication for admins.</li>
+<li>Set up an Email Account (outgoing SMTP) so that password resets and notifications work.</li>
+</ul>
+</div><div class="card"><h2>8. Scheduler, backups and updates</h2>
+<ul>
+<li><strong>Scheduler:</strong> the <code>scheduler</code> container runs the background jobs. Per site: <code>bench --site &lt;domain&gt; enable-scheduler</code>, check with <code>bench --site &lt;domain&gt; doctor</code>.</li>
+<li><strong>Backups:</strong> daily cron on the host, e.g. <code>0 2 * * * cd ~/handover/deploy-kit &amp;&amp; docker compose exec -T backend bench --site all backup --with-files</code>. Backups land in the <code>sites</code> volume under <code>&lt;site&gt;/private/backups</code>. <strong>Copy them off the server</strong> (rclone/S3), and test a restore every month.</li>
+<li><strong>Database volume:</strong> never run <code>docker compose down -v</code> (<code>-v</code> deletes the database volume).</li>
+<li><strong>Updates:</strong> change the tags in <code>Containerfile</code> (base image and <code>HRMS_REF</code>), copy in the new theme version, then <code>docker compose build</code>, <code>docker compose up -d</code>, <code>docker compose exec backend bench --site all migrate</code>. Take a backup first and test the update on a copy. Stay on matching major versions (v16 theme with v16 Frappe/ERPNext).</li>
+<li><strong>OS updates:</strong> Ubuntu <code>unattended-upgrades</code>; Windows Update plus <code>wsl --update</code>.</li>
+</ul>
+</div><div class="card"><h2>9. Firewall basics</h2>
+<ul>
+<li>Allow inbound 80/443 only. SSH/RDP only from your IPs or a VPN. MariaDB (3306) and Redis are never published: they stay on the internal Docker network.</li>
+<li>Use key-based SSH, disable password SSH login, and install fail2ban (Linux). On Windows, use account lockout and Network Level Authentication for RDP.</li>
+</ul>
+</div><div class="card"><h2>10. Troubleshooting</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check / fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>404 "Site not found"</td>
+<td>The site name must equal the host name in the browser (or set <code>FRAPPE_SITE_NAME_HEADER</code>). <code>docker compose exec backend ls sites</code></td>
+</tr>
+<tr>
+<td>502 Bad Gateway</td>
+<td>Backend not ready: <code>docker compose logs -f backend</code>. Wait 1–2 min after start</td>
+</tr>
+<tr>
+<td>Page without styling / missing theme</td>
+<td><code>docker compose exec backend bench --site &lt;domain&gt; clear-cache</code>; restart frontend; check <code>/assets/kodenova_theme/css/kodeerp_v5.css</code> returns 200</td>
+</tr>
+<tr>
+<td>Restore: "Access denied for user"</td>
+<td>Site was created without <code>--mariadb-user-host-login-scope=%</code>; use <code>restore-site.sh</code></td>
+</tr>
+<tr>
+<td>Redis/DB timeouts</td>
+<td><code>docker compose ps</code>: db and redis must be running; containers must share the compose network</td>
+</tr>
+<tr>
+<td>No certificate</td>
+<td>DNS not pointing to the server yet, or port 80 blocked; <code>docker compose logs traefik</code></td>
+</tr>
+<tr>
+<td>Emails not sent / jobs stuck</td>
+<td>Scheduler disabled or worker down: <code>bench --site &lt;domain&gt; doctor</code>, <code>docker compose logs queue-short</code></td>
+</tr>
+<tr>
+<td>Real-time updates not working</td>
+<td>WebSocket must pass the proxy (Traefik does; for nginx add the Upgrade headers)</td>
+</tr>
+<tr>
+<td>Windows: site unreachable after reboot</td>
+<td>WSL not started or portproxy IP changed — see Option B steps 4–5</td>
+</tr>
+</tbody>
+</table>
+</div><div class="card"><h2>11. Known limitations of the demo</h2>
+<ul>
+<li>ZATCA Phase 2 e-invoicing / QR is not active; Foodics sync not connected; some Arabic print labels still English.</li>
+<li>F&amp;B branch manager: the configuration fix (Company's Warehouse/Cost Center link fields ignore user permissions) is applied and included in the fnb backup; the manager creates Olaya invoices/payments and sees Olaya-only reports. Purchase invoices created by the manager currently get no VAT row by default (the purchase VAT template rows use the Head Office cost centre) — select the template or ask us for the matching setting.</li>
+</ul></div><div class='foot'>KodeERP by Kodenova · handover package · nothing deployed by us</div></body></html>

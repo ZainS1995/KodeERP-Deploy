@@ -1,0 +1,49 @@
+# KodeERP local dev stack (adapted from frappe_docker/devcontainer-example/docker-compose.yml)
+# network_mode: host is used because bridge-network egress is blocked on this box
+# (legacy iptables FORWARD DROP + sandbox egress proxy). All services bind to 127.0.0.1
+# on non-default ports to avoid clashing with anything else on the box.
+# Secrets come from .secrets/compose.env (never committed).
+name: kodeerp
+services:
+  mariadb:
+    image: docker.io/mariadb:11.8
+    network_mode: host
+    command:
+      - --bind-address=127.0.0.1
+      - --port=3307
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --innodb-buffer-pool-size=256M
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?set in .secrets/compose.env}
+      MARIADB_AUTO_UPGRADE: 1
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    restart: unless-stopped
+  redis-cache:
+    image: docker.io/redis:alpine
+    network_mode: host
+    command: ["redis-server", "--bind", "127.0.0.1", "--port", "13100", "--save", "", "--maxmemory", "128mb", "--maxmemory-policy", "allkeys-lru"]
+    restart: unless-stopped
+  redis-queue:
+    image: docker.io/redis:alpine
+    network_mode: host
+    command: ["redis-server", "--bind", "127.0.0.1", "--port", "13101"]
+    volumes:
+      - redis-queue-data:/data
+    restart: unless-stopped
+  frappe:
+    image: docker.io/frappe/bench:latest
+    network_mode: host
+    command: sleep infinity
+    environment:
+      - SHELL=/bin/bash
+    volumes:
+      - ./development:/workspace/development
+    working_dir: /workspace/development
+    depends_on: [mariadb, redis-cache, redis-queue]
+    restart: unless-stopped
+volumes:
+  mariadb-data:
+  redis-queue-data:

@@ -1,0 +1,13 @@
+{
+ "creation": "2026-10-19 23:40:00.000000",
+ "docstatus": 0,
+ "doctype": "Dashboard Chart Source",
+ "idx": 0,
+ "modified": "2026-10-19 23:40:00.000000",
+ "modified_by": "Administrator",
+ "module": "Kodenova Theme",
+ "name": "KodeERP Sales Trend",
+ "owner": "Administrator",
+ "source_name": "KodeERP Sales Trend",
+ "timeseries": 0
+}

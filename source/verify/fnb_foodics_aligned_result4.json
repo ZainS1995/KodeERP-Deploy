@@ -1,0 +1,278 @@
+{
+ "created": [
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Material Request",
+   "MAT-MR-2026-00001",
+   0
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Purchase Order",
+   "PUR-ORD-2026-00013",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Purchase Invoice",
+   "ACC-PINV-2026-00046",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Journal Entry",
+   "ACC-JV-2026-00107",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Sales Invoice",
+   "ACC-SINV-2026-00307",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Payment Entry",
+   "ACC-PAY-2026-00044",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Payment Entry",
+   "ACC-PAY-2026-00045",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Budget",
+   "BUDGET-00000001",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Asset",
+   "ACC-ASS-2026-00005",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Asset Movement",
+   "ACC-ASM-2026-00006",
+   1
+  ]
+ ],
+ "results": {
+  "najd.olaya.manager@kodeerp.test": [
+   [
+    "Purchase Request (manager) insert",
+    "PASS",
+    "MAT-MR-2026-00001"
+   ],
+   [
+    "workflow: Submit for Approval",
+    "PASS",
+    "Pending Approval"
+   ],
+   [
+    "workflow: manager cannot approve (expected block)",
+    "PASS",
+    "blocked: Not a valid Workflow Action"
+   ]
+  ],
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "workflow: accounts manager Approve -> submitted",
+    "PASS",
+    [
+     "Approved",
+     1
+    ]
+   ],
+   [
+    "PO from purchase request (mapping)",
+    "PASS",
+    ""
+   ],
+   [
+    "PO insert",
+    "PASS",
+    "PUR-ORD-2026-00013"
+   ],
+   [
+    "PO submit",
+    "PASS",
+    ""
+   ],
+   [
+    "PI from PO insert",
+    "PASS",
+    "ACC-PINV-2026-00046"
+   ],
+   [
+    "PI from PO submit",
+    "PASS",
+    ""
+   ],
+   [
+    "matching: PO billed % / MR ordered %",
+    "PASS",
+    "PO per_billed=100.0 MR per_ordered=100.0"
+   ],
+   [
+    "Recipe (BOM) for Chicken Shawarma Sandwich insert+submit",
+    "PASS",
+    "BOM-MN-001-001"
+   ],
+   [
+    "recipe cost per sandwich",
+    "PASS",
+    "BOM-MN-001-001 cost=4.72 SAR"
+   ],
+   [
+    "consumption: explode recipe x10",
+    "FAIL",
+    "Stock Entry None not found"
+   ],
+   [
+    "Daily POS sales JE (Dr clearing / Cr revenue / Cr VAT) insert+submit",
+    "PASS",
+    "ACC-JV-2026-00107"
+   ],
+   [
+    "Sales Invoice walk-in (VAT 15%) insert+submit",
+    "PASS",
+    "ACC-SINV-2026-00307"
+   ],
+   [
+    "Payment Entry into Foodics clearing insert+submit",
+    "PASS",
+    "ACC-PAY-2026-00044"
+   ],
+   [
+    "Internal Transfer clearing -> bank (settlement) insert+submit",
+    "PASS",
+    "ACC-PAY-2026-00045"
+   ],
+   [
+    "Budget (Malqa food cost 2026) insert+submit",
+    "PASS",
+    "BUDGET-00000001"
+   ],
+   [
+    "Asset insert+submit",
+    "PASS",
+    "ACC-ASS-2026-00005"
+   ],
+   [
+    "depreciation schedule",
+    "FAIL",
+    "ACC-ADS-2026-00005 rows=61 first=2026-10-31 35.48 SAR"
+   ],
+   [
+    "Asset Movement (transfer HQ -> Malqa) insert+submit",
+    "PASS",
+    "ACC-ASM-2026-00006"
+   ],
+   [
+    "asset disposal (scrap)",
+    "PASS",
+    ""
+   ],
+   [
+    "asset status after scrap",
+    "PASS",
+    "status=Scrapped journal=ACC-JV-2026-00109"
+   ],
+   [
+    "asset restore (undo scrap)",
+    "PASS",
+    ""
+   ],
+   [
+    "Accounting Period (lock Jan 2025) insert",
+    "FAIL",
+    "HTTP 500 AttributeError: 'dict' object has no attribute 'document_type'"
+   ],
+   [
+    "list Period Closing Voucher",
+    "PASS",
+    ""
+   ],
+   [
+    "list Budget",
+    "PASS",
+    ""
+   ],
+   [
+    "list Brand",
+    "PASS",
+    ""
+   ],
+   [
+    "list Accounting Dimension",
+    "PASS",
+    ""
+   ],
+   [
+    "list Material Request",
+    "PASS",
+    ""
+   ],
+   [
+    "list BOM",
+    "PASS",
+    ""
+   ],
+   [
+    "list Asset Depreciation Schedule",
+    "PASS",
+    ""
+   ],
+   [
+    "list Mode of Payment",
+    "PASS",
+    ""
+   ],
+   [
+    "list Department",
+    "PASS",
+    ""
+   ],
+   [
+    "report Profit and Loss Statement",
+    "PASS",
+    "rows=43"
+   ],
+   [
+    "report Consolidated Financial Statement",
+    "PASS",
+    "rows=44"
+   ],
+   [
+    "report Budget Variance Report",
+    "PASS",
+    "rows=1"
+   ],
+   [
+    "report Profitability Analysis",
+    "PASS",
+    "rows=6"
+   ],
+   [
+    "report Stock and Account Value Comparison",
+    "PASS",
+    "rows=0"
+   ],
+   [
+    "report Stock Balance",
+    "PASS",
+    "rows=38"
+   ],
+   [
+    "report General Ledger",
+    "PASS",
+    "rows=10"
+   ]
+  ]
+ }
+}

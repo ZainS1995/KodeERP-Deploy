@@ -1,0 +1,18 @@
+/* KodeERP email container branding (hooks.email_css; inlined by premailer after Frappe's email.bundle.css).
+   Web fonts are not reliable in mail clients: Urbanist/Inter apply where installed/allowed, else Arial. */
+body, .body-table, .email-body, .email-body td, .email-footer, p, td, .email-masthead, .email-title-cell, .email-body-cell, .email-footer-cell {
+  font-family: "Urbanist", "Inter", "Noto Sans Arabic", "Segoe UI", Arial, sans-serif !important;
+  color: #0e0e10;
+}
+.body-table.with-container { background-color: #f3f3f4; }
+.email-container { background-color: #ffffff; border-radius: 20px; }
+.email-masthead { background-color: #ffffff; border-top: 4px solid #ff6a3d; border-bottom: 1px solid #ececef; padding: 16px 24px; border-radius: 20px 20px 0 0; }
+.email-masthead a { text-decoration: none; }
+.email-masthead .brand-name { color: #0e0e10; font-weight: 800; font-size: 18px; letter-spacing: -0.02em; }
+.email-masthead .brand-logo { border-radius: 0; height: 28px; width: auto; vertical-align: middle; margin-right: 0; }
+/* the logo image already carries the KodeERP wordmark (Kode ink, ERP blue); hide the plain-text duplicate */
+.email-masthead .brand-name { display: none; }
+.email-title-cell { color: #0e0e10; font-weight: 700; }
+a { color: #2556d9; }
+.btn, .btn-primary, a.btn-primary { background-color: #2556d9; color: #ffffff; border-radius: 12px; }
+.email-footer-cell, .email-footer td { color: #6c6c74; }

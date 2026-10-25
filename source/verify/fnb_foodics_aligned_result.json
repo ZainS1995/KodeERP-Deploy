@@ -1,0 +1,750 @@
+{
+ "created": [
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Quotation",
+   "SAL-QTN-2026-00002",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Purchase Order",
+   "PUR-ORD-2026-00010",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Stock Entry",
+   "MAT-STE-2026-00067",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Stock Reconciliation",
+   "MAT-RECO-2026-00008",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Asset",
+   "ACC-ASS-2026-00002",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Employee",
+   "HR-EMP-00002",
+   0
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Salary Structure Assignment",
+   "HR-SSA-26-10-00002",
+   1
+  ],
+  [
+   "najd.accounts.en@kodeerp.test",
+   "Salary Slip",
+   "Sal Slip/HR-EMP-00002/00001",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Quotation",
+   "SAL-QTN-2026-00003",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Purchase Order",
+   "PUR-ORD-2026-00011",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Stock Entry",
+   "MAT-STE-2026-00068",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Stock Reconciliation",
+   "MAT-RECO-2026-00009",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Asset",
+   "ACC-ASS-2026-00003",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Employee",
+   "HR-EMP-00003",
+   0
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Salary Structure Assignment",
+   "HR-SSA-26-10-00003",
+   1
+  ],
+  [
+   "najd.accounts.ar@kodeerp.test",
+   "Salary Slip",
+   "Sal Slip/HR-EMP-00003/00001",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Quotation",
+   "SAL-QTN-2026-00004",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Purchase Order",
+   "PUR-ORD-2026-00012",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Stock Reconciliation",
+   "MAT-RECO-2026-00010",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Asset",
+   "ACC-ASS-2026-00004",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Employee",
+   "HR-EMP-00004",
+   0
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Salary Structure Assignment",
+   "HR-SSA-26-10-00004",
+   1
+  ],
+  [
+   "najd.olaya.manager@kodeerp.test",
+   "Salary Slip",
+   "Sal Slip/HR-EMP-00004/00001",
+   1
+  ]
+ ],
+ "results": {
+  "najd.accounts.en@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only Accounts + KodeERP sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "KodeERP sidebar sections",
+    "PASS",
+    "Accounting / Sales / Purchasing / Bank & Cash / Inventory / Assets / HR & Payroll / Reports / VAT & Tax / Users & Audit"
+   ],
+   [
+    "sidebar has the new doctypes",
+    "PASS",
+    "72 items"
+   ],
+   [
+    "no ERPNext/Frappe label in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "CRM/Manufacturing/Projects/Support/Website not in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "Quotation insert+submit",
+    "PASS",
+    "SAL-QTN-2026-00002"
+   ],
+   [
+    "Purchase Order insert+submit",
+    "PASS",
+    "PUR-ORD-2026-00010"
+   ],
+   [
+    "Stock Entry (Material Transfer) insert+submit",
+    "PASS",
+    "MAT-STE-2026-00067"
+   ],
+   [
+    "read stock qty (Bin)",
+    "PASS",
+    "qty=1937.0"
+   ],
+   [
+    "Stock Reconciliation insert+submit",
+    "PASS",
+    "MAT-RECO-2026-00008"
+   ],
+   [
+    "Asset insert+submit",
+    "PASS",
+    "ACC-ASS-2026-00002"
+   ],
+   [
+    "Employee insert",
+    "PASS",
+    "HR-EMP-00002"
+   ],
+   [
+    "Salary Structure Assignment insert+submit",
+    "PASS",
+    "HR-SSA-26-10-00002"
+   ],
+   [
+    "Salary Slip insert+submit",
+    "PASS",
+    "Sal Slip/HR-EMP-00002/00001"
+   ],
+   [
+    "Salary Slip amounts",
+    "PASS",
+    "gross=6000.0 net=6000.0 working_days=21.0"
+   ],
+   [
+    "Bank Reconciliation Tool opens",
+    "PASS",
+    ""
+   ],
+   [
+    "Bank Reconciliation balance call",
+    "PASS",
+    "balance=-4.656612873077393e-10"
+   ],
+   [
+    "Opening Invoice Creation Tool opens",
+    "PASS",
+    ""
+   ],
+   [
+    "list Landed Cost Voucher",
+    "PASS",
+    ""
+   ],
+   [
+    "list Payroll Entry",
+    "PASS",
+    ""
+   ],
+   [
+    "list Additional Salary",
+    "PASS",
+    ""
+   ],
+   [
+    "list Employee Advance",
+    "PASS",
+    ""
+   ],
+   [
+    "list Leave Application",
+    "PASS",
+    ""
+   ],
+   [
+    "list Asset Movement",
+    "PASS",
+    ""
+   ],
+   [
+    "list Auto Repeat",
+    "PASS",
+    ""
+   ],
+   [
+    "list Journal Entry Template",
+    "PASS",
+    ""
+   ],
+   [
+    "list Repost Item Valuation",
+    "PASS",
+    ""
+   ],
+   [
+    "list Bank Transaction",
+    "PASS",
+    ""
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=50"
+   ],
+   [
+    "report Cash Flow",
+    "PASS",
+    "rows=17"
+   ],
+   [
+    "report Profitability Analysis",
+    "PASS",
+    "rows=6"
+   ],
+   [
+    "report Gross Profit",
+    "PASS",
+    "rows=6886"
+   ],
+   [
+    "report Customer Ledger Summary",
+    "PASS",
+    "rows=11"
+   ],
+   [
+    "report Supplier Ledger Summary",
+    "PASS",
+    "rows=9"
+   ],
+   [
+    "report Bank Reconciliation Statement",
+    "PASS",
+    "rows=84"
+   ],
+   [
+    "report Stock Balance",
+    "PASS",
+    "rows=149"
+   ],
+   [
+    "report Fixed Asset Register",
+    "PASS",
+    "rows=2"
+   ],
+   [
+    "report Salary Register",
+    "PASS",
+    "rows=2"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ],
+  "najd.accounts.ar@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only Accounts + KodeERP sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=ar"
+   ],
+   [
+    "KodeERP sidebar sections",
+    "PASS",
+    "المحاسبة / مبيعات / المشتريات / البنك والنقدية / المخزون / الأصول / الموارد البشرية والرواتب / تقارير / ضريبة القيمة المضافة / المستخدمون والتدقيق"
+   ],
+   [
+    "sidebar has the new doctypes",
+    "PASS",
+    "72 items"
+   ],
+   [
+    "no ERPNext/Frappe label in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "CRM/Manufacturing/Projects/Support/Website not in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "Quotation insert+submit",
+    "PASS",
+    "SAL-QTN-2026-00003"
+   ],
+   [
+    "Purchase Order insert+submit",
+    "PASS",
+    "PUR-ORD-2026-00011"
+   ],
+   [
+    "Stock Entry (Material Transfer) insert+submit",
+    "PASS",
+    "MAT-STE-2026-00068"
+   ],
+   [
+    "read stock qty (Bin)",
+    "PASS",
+    "qty=2236.0"
+   ],
+   [
+    "Stock Reconciliation insert+submit",
+    "PASS",
+    "MAT-RECO-2026-00009"
+   ],
+   [
+    "Asset insert+submit",
+    "PASS",
+    "ACC-ASS-2026-00003"
+   ],
+   [
+    "Employee insert",
+    "PASS",
+    "HR-EMP-00003"
+   ],
+   [
+    "Salary Structure Assignment insert+submit",
+    "PASS",
+    "HR-SSA-26-10-00003"
+   ],
+   [
+    "Salary Slip insert+submit",
+    "PASS",
+    "Sal Slip/HR-EMP-00003/00001"
+   ],
+   [
+    "Salary Slip amounts",
+    "PASS",
+    "gross=6000.0 net=6000.0 working_days=21.0"
+   ],
+   [
+    "Bank Reconciliation Tool opens",
+    "PASS",
+    ""
+   ],
+   [
+    "Bank Reconciliation balance call",
+    "PASS",
+    "balance=-4.656612873077393e-10"
+   ],
+   [
+    "Opening Invoice Creation Tool opens",
+    "PASS",
+    ""
+   ],
+   [
+    "list Landed Cost Voucher",
+    "PASS",
+    ""
+   ],
+   [
+    "list Payroll Entry",
+    "PASS",
+    ""
+   ],
+   [
+    "list Additional Salary",
+    "PASS",
+    ""
+   ],
+   [
+    "list Employee Advance",
+    "PASS",
+    ""
+   ],
+   [
+    "list Leave Application",
+    "PASS",
+    ""
+   ],
+   [
+    "list Asset Movement",
+    "PASS",
+    ""
+   ],
+   [
+    "list Auto Repeat",
+    "PASS",
+    ""
+   ],
+   [
+    "list Journal Entry Template",
+    "PASS",
+    ""
+   ],
+   [
+    "list Repost Item Valuation",
+    "PASS",
+    ""
+   ],
+   [
+    "list Bank Transaction",
+    "PASS",
+    ""
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=50"
+   ],
+   [
+    "report Cash Flow",
+    "PASS",
+    "rows=17"
+   ],
+   [
+    "report Profitability Analysis",
+    "PASS",
+    "rows=6"
+   ],
+   [
+    "report Gross Profit",
+    "PASS",
+    "rows=6886"
+   ],
+   [
+    "report Customer Ledger Summary",
+    "PASS",
+    "rows=11"
+   ],
+   [
+    "report Supplier Ledger Summary",
+    "PASS",
+    "rows=9"
+   ],
+   [
+    "report Bank Reconciliation Statement",
+    "PASS",
+    "rows=84"
+   ],
+   [
+    "report Stock Balance",
+    "PASS",
+    "rows=149"
+   ],
+   [
+    "report Fixed Asset Register",
+    "PASS",
+    "rows=3"
+   ],
+   [
+    "report Salary Register",
+    "PASS",
+    "rows=3"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ],
+  "najd.olaya.manager@kodeerp.test": [
+   [
+    "login",
+    "PASS",
+    ""
+   ],
+   [
+    "desk boot: only Accounts + KodeERP sidebars",
+    "PASS",
+    "sidebars=['Accounts', 'KodeERP'] lang=en"
+   ],
+   [
+    "KodeERP sidebar sections",
+    "PASS",
+    "Accounting / Sales / Purchasing / Bank & Cash / Inventory / Assets / HR & Payroll / Reports / VAT & Tax / Users & Audit"
+   ],
+   [
+    "sidebar has the new doctypes",
+    "FAIL",
+    "missing=['Payroll Entry', 'Employee Advance', 'Opening Invoice Creation Tool']"
+   ],
+   [
+    "no ERPNext/Frappe label in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "CRM/Manufacturing/Projects/Support/Website not in sidebar",
+    "PASS",
+    "[]"
+   ],
+   [
+    "Quotation insert+submit",
+    "PASS",
+    "SAL-QTN-2026-00004"
+   ],
+   [
+    "Purchase Order insert+submit",
+    "PASS",
+    "PUR-ORD-2026-00012"
+   ],
+   [
+    "Stock Entry (Material Transfer) insert",
+    "FAIL",
+    "HTTP 403 You are not allowed to access this Stock Entry Detail record because it is linked to Warehouse 'Central Food Store | مخزن الأغذية المركزي - NJB' in row 1, field Source Warehouse"
+   ],
+   [
+    "read stock qty (Bin)",
+    "PASS",
+    "qty=2609.0"
+   ],
+   [
+    "Stock Reconciliation insert+submit",
+    "PASS",
+    "MAT-RECO-2026-00010"
+   ],
+   [
+    "Asset insert+submit",
+    "PASS",
+    "ACC-ASS-2026-00004"
+   ],
+   [
+    "Employee insert",
+    "PASS",
+    "HR-EMP-00004"
+   ],
+   [
+    "Salary Structure Assignment insert+submit",
+    "PASS",
+    "HR-SSA-26-10-00004"
+   ],
+   [
+    "Salary Slip insert+submit",
+    "PASS",
+    "Sal Slip/HR-EMP-00004/00001"
+   ],
+   [
+    "Salary Slip amounts",
+    "PASS",
+    "gross=6000.0 net=6000.0 working_days=21.0"
+   ],
+   [
+    "Bank Reconciliation Tool opens",
+    "PASS",
+    ""
+   ],
+   [
+    "Bank Reconciliation balance call",
+    "PASS",
+    "balance=-4.656612873077393e-10"
+   ],
+   [
+    "Opening Invoice Creation Tool opens",
+    "FAIL",
+    "HTTP 403 User najd.olaya.manager@kodeerp.test does not have access to this document: Opening Invoice Creation Tool"
+   ],
+   [
+    "list Landed Cost Voucher",
+    "PASS",
+    ""
+   ],
+   [
+    "list Payroll Entry",
+    "FAIL",
+    "HTTP 403 You don't have permission to open Payroll Entry."
+   ],
+   [
+    "list Additional Salary",
+    "PASS",
+    ""
+   ],
+   [
+    "list Employee Advance",
+    "FAIL",
+    "HTTP 403 You don't have permission to open Employee Advance."
+   ],
+   [
+    "list Leave Application",
+    "PASS",
+    ""
+   ],
+   [
+    "list Asset Movement",
+    "PASS",
+    ""
+   ],
+   [
+    "list Auto Repeat",
+    "PASS",
+    ""
+   ],
+   [
+    "list Journal Entry Template",
+    "PASS",
+    ""
+   ],
+   [
+    "list Repost Item Valuation",
+    "PASS",
+    ""
+   ],
+   [
+    "list Bank Transaction",
+    "PASS",
+    ""
+   ],
+   [
+    "report Trial Balance",
+    "PASS",
+    "rows=41"
+   ],
+   [
+    "report Cash Flow",
+    "PASS",
+    "rows=17"
+   ],
+   [
+    "report Profitability Analysis",
+    "PASS",
+    "rows=2"
+   ],
+   [
+    "report Gross Profit",
+    "PASS",
+    "rows=2062"
+   ],
+   [
+    "report Customer Ledger Summary",
+    "PASS",
+    "rows=11"
+   ],
+   [
+    "report Supplier Ledger Summary",
+    "PASS",
+    "rows=9"
+   ],
+   [
+    "report Bank Reconciliation Statement",
+    "PASS",
+    "rows=84"
+   ],
+   [
+    "report Stock Balance",
+    "PASS",
+    "rows=38"
+   ],
+   [
+    "report Fixed Asset Register",
+    "PASS",
+    "rows=4"
+   ],
+   [
+    "report Salary Register",
+    "PASS",
+    "rows=2"
+   ],
+   [
+    "report KSA VAT Return (Demo)",
+    "PASS",
+    "rows=8"
+   ]
+  ]
+ }
+}
